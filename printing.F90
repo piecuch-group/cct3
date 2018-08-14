@@ -5,44 +5,43 @@ subroutine print_header()
     integer(kind=4) :: stat
     character(len=800) :: io
 
-    write(io,'(a)') 'UCCSD building test'
+    write(io,'(a)') 'MSU CC(t;3)'
     call print_io(io)
-    write(io,'(a)') '==================='
+    write(io,'(a)') '==========='
     call print_io(io)
-
-    write(io,'(a)') 'Compilation information'
-    write(io,'(a)') '-----------------------'
 
 #ifdef VERSION
     write(io,'(2x,a20,1x,a)') 'Git SHA', &
      VERSION
 #endif
 
-    write(io,'(a)') 'Host information'
-    write(io,'(a)') '----------------'
-
 end subroutine print_header
 
-subroutine print_calc_params(froz, occ_a, occ_b, total, &
+subroutine print_calc_params(froz, occ_a, occ_b, total, actocc, actunocc, &
         shift, itol, &
         eref, erepul, &
         diis_space, restart, maxiter, &
         label)
 
-    integer, intent(in) :: froz, occ_a, occ_b, total
+    implicit none
+
+    integer, intent(in) :: froz, occ_a, occ_b, total, actocc, actunocc
     integer, intent(in) :: itol, diis_space
     logical, intent(in) :: restart
+    integer, intent(in) :: maxiter
     character(len=*) :: label
     real(kind=8), intent(in) :: eref, erepul, shift
     character(len=800) :: io
 
+    call print_io('')
     write(io,'(a)') 'System information'
     call print_io(io)
     write(io,'(a)') '------------------'
+    call print_io(io)
     if (trim(label) /= '') then
         write(io,'(2x,a27,2x,a)') 'Label', trim(label)
+        call print_io(io)
     endif
-    call print_io(io)
     write(io,'(2x,a27,2x,i16)') 'Frozen orbitals', froz
     call print_io(io)
     write(io,'(2x,a27,2x,i16)') 'Occupied orbitals (alpha)',occ_a
@@ -51,16 +50,12 @@ subroutine print_calc_params(froz, occ_a, occ_b, total, &
     call print_io(io)
     write(io,'(2x,a27,2x,i16)') 'Total orbitals', total
     call print_io(io)
+    write(io,'(2x,a27,2x,i16)') 'Active occupied orbitals', occ_b - actocc
+    call print_io(io)
+    write(io,'(2x,a27,2x,i16)') 'Active unoccupied orbitals', actunocc - occ_a
+    call print_io(io)
 
-    !      write(io,'(2x,a27,2x,i16)')
-    !    &  'Occupied active (guess)', m3
-    !      write(io,'(2x,a27,2x,i16)')
-    !    &  'Unoccupied active (guess)', m4
-    !      write(io,'(2x,a27,2x,i16)')
-    !    &  'Occupied active', m1
-    !      write(io,'(2x,a27,2x,i16)')
-    !    &  'Unoccupied active', m2
-
+    call print_io('')
     write(io,'(a)') 'CC settings'
     call print_io(io)
     write(io,'(a)')  '-----------'
@@ -77,6 +72,7 @@ subroutine print_calc_params(froz, occ_a, occ_b, total, &
     write(io,'(2x,a27,2x,es16.4)') 'Shift energy', shift
     call print_io(io)
 
+    call print_io('')
     write(io,'(a)') 'Starting energies (Eh)'
     call print_io(io)
     write(io,'(a)')  '----------------------'
@@ -94,33 +90,24 @@ subroutine print_summary(e_hf, ecor, ccpq_energy)
     real(kind=8), intent(in) :: ccpq_energy(4)
     character(len=800) :: io
 
-    write(io,'(a)') 'CCSDt Calculation Summary (Eh)'
+    call print_io('')
+    write(io,'(a)') 'CC(t;3) Calculation Summary (Eh)'
     call print_io(io)
-    write(io,'(a)')  '------------------------------'
+    write(io,'(a)') '--------------------------------'
     call print_io(io)
-    write(io,'(a20,f18.12)') 'Reference', e_hf
-    call print_io(io)
-    write(io,'(a20,f18.12)') 'Correlation', ecor
-    call print_io(io)
-    write(io,'(a20,f18.12)') 'Total energy', e_hf + ecor
-    call print_io(io)
+    call print_io('')
 
-    write(io,'(a)') 'CC(t;3),A Calculation Summary (Eh)'
+    write(io,'(5x,a12,2a25)') 'Method', 'Correlation Energy (Eh)', 'Total Energy (Eh)'
     call print_io(io)
-    write(io,'(a)')  '----------------------------------'
+    write(io,'(5x,62("-"))')
     call print_io(io)
-    write(io,'(a20,f18.12)') 'Correlation', ecor + ccpq_energy(1)
+    write(io,'(5x,a12,32x,f18.12)') 'Reference', e_hf
     call print_io(io)
-    write(io,'(a20,f18.12)') 'Total energy', e_hf + ecor + ccpq_energy(1)
+    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CCSDt', ecor,  e_hf + ecor
     call print_io(io)
-
-    write(io,'(a)') 'CC(t;3),D Calculation Summary (Eh)'
+    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CC(t;3),A', ecor + ccpq_energy(1),  e_hf + ecor + ccpq_energy(1)
     call print_io(io)
-    write(io,'(a)')  '----------------------------------'
-    call print_io(io)
-    write(io,'(a20,f18.12)') 'Correlation', ecor + ccpq_energy(4)
-    call print_io(io)
-    write(io,'(a20,f18.12)') 'Total energy', e_hf + ecor + ccpq_energy(4)
+    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CC(t;3)', ecor + ccpq_energy(4),  e_hf + ecor + ccpq_energy(4)
     call print_io(io)
 
 end subroutine print_summary

@@ -88,6 +88,7 @@ subroutine hbar(N0,N1,N2,N3, t_size, t0, &
         FockR, FockB, IntR, IntM, IntB, &
         onebody, twobody)
 
+    call print_io('')
     call print_date('  Similarity transformed Hamiltonian generation started on')
 
     allocate(H1A(N0+1:N3,N0+1:N3))
@@ -752,5 +753,6 @@ subroutine hbar(N0,N1,N2,N3, t_size, t0, &
     write(iHBar)H2C
     deallocate(H2C)
     call print_io('    Two-body matrix done')
+    call print_io('')
 
 end subroutine hbar

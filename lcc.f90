@@ -123,7 +123,9 @@ subroutine solve_lcc(n0, n1, n2, n3, &
     open(l_vecs_unit, file='l_vecs.bin', form='unformatted', recl=kkk*8, access='direct')
     write(l_unit) t
 
+    call print_io('')
     call print_date('  Starting L-CC calculation on')
+    call print_io('')
     call print_iter_head()
     call cpu_time(prev_time)
     do iter=1, maxiter
@@ -165,7 +167,9 @@ subroutine solve_lcc(n0, n1, n2, n3, &
 
     enddo
 
+    call print_io('')
     call print_date('  L-CC calculation finished on:')
+    call print_io('')
 
     close(l_vecs_unit, status='delete')
     close(l_unit)

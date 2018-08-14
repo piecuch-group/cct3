@@ -102,7 +102,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
         VAAPPP, VBAPPP, VBPAPP, VCAPPP, &
         onebody, twobody)
 
-    call print_calc_params(froz, occ_a, occ_b, orbs, &
+    call print_calc_params(froz, occ_a, occ_b, orbs, actocc, actunocc, &
         shift, itol, &
         eref, erepul, &
         diis_space, restart, maxiter, &
@@ -114,7 +114,9 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
     allocate(t(t_size))
     t=0.0d0
 
+    call print_io('')
     call print_date('  Starting CCSDt calculation on')
+    call print_io('')
 
     rewind(t_unit)
 
@@ -196,6 +198,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
     close(t_vecs_unit, status='delete')
     close(t_unit)
 
+    call print_io('')
     call print_date('  CCSDt calculation finished on:')
 
     ! Pass T_1 + T_2 for left and correction

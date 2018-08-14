@@ -1,8 +1,13 @@
+# Binary output files
+*.bin
+
 amplitudes.moe
 PA
 PB
 PC
 psi.*.clean
+onebody.inp
+twobody.inp
 
 input.dat
 output.dat
