@@ -52,7 +52,7 @@
 // This allows us to be lazy in getting the spaces in DPD calls
 #define ID(x) ints.DPD_ID(x)
 
-namespace psi{ namespace cct3{
+namespace psi{ namespace psi4_cct3{
 
 // Insertion sort algorithm adapted from HANDE and Rossetta
 void insertion_sort(double* sp_eigv, int* sp_ord, int* sp_ord_inv, int norbs) {
@@ -186,7 +186,7 @@ void F77NAME(print_psi4) (const char *string)
 extern "C" PSI_API
 int read_options(std::string name, Options &options)
 {
-    if (name == "CCT3" || options.read_globals()) {
+    if (name == "PSI4_CCT3" || options.read_globals()) {
         // [TODO] add shifts, diis control and rhf vs rohf
 
         // Frozen occupied orbitals
@@ -213,7 +213,7 @@ int read_options(std::string name, Options &options)
 
 
 extern "C" PSI_API
-SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
+SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
 {
     // Definitions
     double ints_tol = 0.0;

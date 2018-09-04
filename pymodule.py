@@ -55,11 +55,11 @@ def run_cct3(name, **kwargs):
 
     # Call the Psi4 plugin
     # Please note that setting the reference wavefunction in this way is ONLY for plugins
-    cct3_wfn = psi4.core.plugin('cct3.so', ref_wfn)
+    cct3_wfn = psi4.core.plugin('psi4_cct3.so', ref_wfn)
 
     return cct3_wfn
 
 
 # Integration with driver routines
-psi4.driver.procedures['energy']['cct3'] = run_cct3
+psi4.driver.procedures['energy']['psi4_cct3'] = run_cct3
 

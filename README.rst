@@ -13,8 +13,8 @@ A working version of PSI4 version 1.1 is required. To compile the plugin:
 
 ::
 
-   $ git clone https://gitlab.msu.edu/deustuaj/cct3-psi4
-   $ cd cct3-psi4
+   $ git clone https://gitlab.msu.edu/piecuch-group/psi4_cct3
+   $ cd psi4_cct3
    $ `psi4 --plugin-compile`
    $ make
 
@@ -26,7 +26,7 @@ the scheme
 
 ::
 
-   set cct3 {
+   set psi4-cct3 {
       option value
       ...
    }

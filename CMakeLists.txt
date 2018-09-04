@@ -30,7 +30,7 @@
 
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-project(cct3 CXX Fortran)
+project(psi4-cct3 CXX Fortran)
 
 find_package(psi4 1.1 REQUIRED)
 
@@ -48,7 +48,7 @@ SET( CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -g -fbacktrace -ffixed-line-length
 
 #set(my_lib_dir "/home/edeustua/Downloads/psi4/tests/plugins/cct3")
 
-add_psi4_plugin(cct3
+add_psi4_plugin(psi4_cct3
 	cct3.cc
 
 Cal_D3.f

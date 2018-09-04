@@ -1,0 +1,43 @@
+
+# PYTHONPATH must include directory above plugin directory.
+#     Define either externally or here, then import plugin.
+sys.path.insert(0, './..')
+import psi4-cct3
+
+molecule {
+    units bohr
+    h -2.514213562373  -1.000000000000   0.000000000000
+    h -2.514213562373   1.000000000000   0.000000000000
+    h  2.514213562373  -1.000000000000   0.000000000000
+    h  2.514213562373   1.000000000000   0.000000000000
+    h -1.000000000000  -2.414213562373   0.000000000000
+    h -1.000000000000   2.414213562373   0.000000000000
+    h  1.000000000000  -2.414213562373   0.000000000000
+    h  1.000000000000   2.414213562373   0.000000000000
+    symmetry d2h
+}
+
+basis {
+    assign H mbs_my
+
+    [mbs_my]
+    cartesian
+    ****
+    H   0
+    S   3  1.0000
+          4.50038     0.0704800
+          0.681277    0.407890
+          0.151374    0.647670
+    ****
+
+
+}
+
+set psi4-cct3 {
+  froz 0
+  act_occ 1
+  act_unocc 1
+  etol 16
+}
+
+energy('cct3')
