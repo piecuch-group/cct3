@@ -1,50 +1,49 @@
-PGCC (Piecuch Group Coupled-Cluster)
-====================================
+CC(t;3) PSI4 plugin
+===================
 
-This code is used in conjuction with the automatic CC code generator to perform
-CC calculations.
+CC(t;3) is a quantum chemistry method that consists in the computation of the
+iterative active-space coupled-cluster approach with singles, doubles, and
+active-space triples, denominated CCSDt, and in the subsequent energy correction
+based on the method of moments of coupled-cluster equations.
 
-Usage
------
+Compilation
+-----------
 
-The executable is invoked using
+A working version of PSI4 version 1.1 is required. To compile the plugin:
 
 ::
 
-   pgcc [OPTIONS] CONFIGURATION_FILE
+   $ git clone https://gitlab.msu.edu/deustuaj/cct3-psi4
+   $ cd cct3-psi4
+   $ `psi4 --plugin-compile`
+   $ make
 
-with the following options
+Running
+-------
 
--o file, --output file                 Output filename. If not set, the program's output will be directed to stdout.
+In order to run a CCSDt calculation, the following options have to be set within
+the scheme
 
-The configuration file accepts the following options:
+::
 
-nfroz, core
-  Number of frozen spin-orbitals.
+   set cct3 {
+      option value
+      ...
+   }
 
-occ, occupied
-  Number of occupied spin-orbitals.
+froz
+   Number of frozen core molecular orbitals.
+act_occ
+   Number of active occupied molecular orbitals counting from the fermi vaccum
+   down.
+act_unocc
+   Number of active unnocupied molecular orbitals counting from the fermi vaccum
+   up.
+etol
+   Energy convergence tolerance given as 10^-ETOL. Default is 10^-7
+max_iter
+   Maximum number of iterations. Default is 1000.
+keep_amps
+   If true, write down the converged cluster amplitudes to the file
+   ``amplitudes.moe``.
 
-unocc, unoccupied
-  Number of unoccupied spin-orbitals.
-
-mult, multiplicity
-  System's spin multiplicity.
-
-maxiter, max_iterations
-  Maximum amount of iterations.
-
-diis, diis_space
-  Number of cycles between DIIS extrapolations.
-
-tol, tolerance
-  Convergence tolerance (10^-tol).
-
-label
-  Calculation label
-
-onebody
-  One-body integrals file name.
-
-twobody
-  Two-body integrals file name.
