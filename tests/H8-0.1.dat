@@ -2,7 +2,7 @@
 # PYTHONPATH must include directory above plugin directory.
 #     Define either externally or here, then import plugin.
 sys.path.insert(0, './..')
-import psi4-cct3
+import psi4_cct3
 
 molecule {
     units bohr
@@ -33,11 +33,11 @@ basis {
 
 }
 
-set psi4-cct3 {
+set psi4_cct3 {
   froz 0
   act_occ 1
   act_unocc 1
   etol 16
 }
 
-energy('cct3')
+energy('psi4_cct3')
