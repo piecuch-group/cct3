@@ -2,8 +2,30 @@ subroutine cc(froz, socc, docc, orbs, actocc_in, actunocc_in, &
         etol, maxiter, keep_amps, ifrhf, &
     onebody, twobody, erepul, eref_psi4)
 
-    ! CC(t;3) main driver. This routine receives input information from PSI4 and
-    ! runs the corresponding CCSDt, L-CCSD, and moment-correction codes.
+    ! Wrapper between PSI4 and the CC(t;3) program. It handles molecular data,
+    ! including one- and two-body integrals.
+
+    ! In:
+    !    froz: number of frozen occupied orbitals in the molecular system.
+    !    socc: singly occupied orbitals in the molecular system.
+    !    docc: doubly occupied orbitals in the molecular system.
+    !    actocc_in: number of active occupied orbitals, used specified.
+    !    actunocc_in: number of active unoccupied orbitals, user specified.
+    !    etol: energy convergence criterium. If the energy falls below 10^-etol,
+    !       the calculation converges.
+    !    maxiter: maximum number of Jacobi iterations permitted before aborting
+    !       the calculation.
+    !    keep_amps: whether cluster amplitudes should be kept after the calculation
+    !       are over or not.
+    !    ifrhf: whether the SCF computations were done using restricted Hartree--Fock
+    !       (closed-shell) or not.
+    !       are over or not.
+    !    diis_space: size of the DIIS steps used to accelerate the convergence of
+    !       the CC Jacobi iterations.
+    !    erepul: core energy, which consists of the electron-nucleus repulsion.
+    !    onebody: one-body moleculars integrals coming from SCF calculations in PSI4.
+    !    twobody: two-body moleculars integrals coming from SCF calculations in PSI4.
+    !    eref_psi4: reference energy from SCF calculations in PSI4.
 
     ! In:
     !    sys:

@@ -1,5 +1,8 @@
-CC(t;3) PSI4 plugin
+CC(t;3) PSI4 plugin 
 ===================
+.. image:: https://travis-ci.org/piecuch-group/psi4_cct3.svg?branch=dev
+    :target: https://travis-ci.org/piecuch-group/psi4_cct3
+
 
 CC(t;3) is a quantum chemistry method that consists in the computation of the
 iterative active-space coupled-cluster approach with singles, doubles, and

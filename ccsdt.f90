@@ -4,6 +4,37 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
         diis_space, restart, maxiter, &
         onebody, twobody, label)
 
+    ! Wrapper between PSI4 and the CC(t;3) program. It handles molecular data,
+    ! including one- and two-body integrals.
+
+    ! [TODO] these section should shrink by defining proper derived types instead
+
+    ! In:
+    !    occ_a: number of occupied alpha orbitals in the molecular system.
+    !    occ_b: number of occupied beta orbitals in the molecular system.
+    !    actocc: number of active occupied orbitals, used specified.
+    !    actunocc: number of active unoccupied orbitals, user specified.
+    !    shift: shift energy used to help Jacobi convergence.
+    !    itol: energy convergence criterium. If the energy falls below 10^-itol,
+    !       the calculation converges.
+    !    erepul: core energy, which consists of the electron-nucleus repulsion.
+    !    eref: reference energy from SCF calculations.
+    !    diis_space: size of the DIIS steps used to accelerate the convergence of
+    !       the CC Jacobi iterations.
+    !    restart: whether the calculation should be restarted from a previous
+    !       checkpoint.
+    !    maxiter: maximum number of Jacobi iterations permitted before aborting
+    !       the calculation.
+    !    onebody: one-body moleculars integrals coming from SCF calculations in PSI4.
+    !    twobody: two-body moleculars integrals coming from SCF calculations in PSI4.
+    !    label: calculation label to be printed on the output, for identification
+    !       purposes.
+
+    ! In/Out:
+    !    ecor: correlation energy from CC(t;3) calculations.
+    !    t2_size: size of the T_1 + T_2 vector.
+    !    t2: the T_1 + T_2 vector.
+
     use integrals
     use diis
     use utils
@@ -89,9 +120,11 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
     real(kind=8), allocatable :: VCAPPP(:,:,:,:)
 
 
+    ! Compute the size of the spin-integrated T_3 vectors
     call count_t_spaces(froz, occ_a, occ_b, orbs, actocc, actunocc, &
         t_trunc, t_order, t_pos, t_size)
 
+    ! Sort integrals by spin and hole/particle type
     call load_integrals(froz, occ_a, occ_b, orbs, actocc, actunocc,&
         erepul, eref, &
         FAHH,FAHP,FAPP,FBHH,FBHP,FBPP, &
@@ -102,12 +135,14 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
         VAAPPP, VBAPPP, VBPAPP, VCAPPP, &
         onebody, twobody)
 
+    ! Print calculations parameters to the output file
     call print_calc_params(froz, occ_a, occ_b, orbs, actocc, actunocc, &
         shift, itol, &
         eref, erepul, &
         diis_space, restart, maxiter, &
         label)
 
+    ! Open temporary files to store T vector amplitudes
     open(t_unit,file='t_vec.bin',form='unformatted')
     open(t_vecs_unit, file='t_vecs.bin', form='unformatted', recl=t_size*8, access='direct')
 
@@ -120,8 +155,10 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
 
     rewind(t_unit)
 
+    ! Whether restarting from a previous checkpoint or not
     if (restart) read(t_unit, iostat=ios) t
 
+    ! Initialize variables
     e1a=0.0d0
     e1b=0.0d0
     e2a=0.0d0
@@ -133,6 +170,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
     ecor=0.0d0
     ecor_new=0.0d0
 
+    ! Output formatting
     call print_iter_head()
 
     ! Start main CC loop
@@ -140,6 +178,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
     do iter = 1, maxiter
 
 
+        ! Update CC amplitudes using the Jacobi method
         call update_cc(froz, occ_a, occ_b, orbs, actocc, actunocc, &
             t_order, t_pos, t_size, t, shift, &
             FAHH,FAHP,FAPP,FBHH,FBHP,FBPP, &
@@ -149,6 +188,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
             VCHHHH,VCHHHP,VCHHPP,VCHPHP,VCHPPP, &
             VAAPPP, VBAPPP, VBPAPP, VCAPPP)
 
+        ! Calculate the correlation energy
         call calculate_energy(occ_a,occ_b,orbs,froz, &
             FAHP,FBHP,VAHHPP,VBHHPP,VCHHPP, &
             t_order, t_pos, t(1:t_pos(6) - 1), &
@@ -157,9 +197,10 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
         ecor_new = e1a+e1b+e2a+e2b+e2c+e1a1a+e1a1b+e1b1b
         energy_diff = ecor-ecor_new
 
+        ! Abort calculation if the cluster amplitudes are diverging
         if (isnan(energy_diff)) call abort_cc('Calculation diverged')
 
-        ! Convergence log
+        ! Convergence information. Currently using a moving average. This can change
         conv(1) = conv(2)
         conv(2) = conv(3)
         conv(3) = energy_diff
@@ -190,6 +231,7 @@ subroutine solve_ccsdt(occ_a,occ_b,orbs,froz, actocc, actunocc, &
         ! Check for convergence
         if (dabs(conv(1)) < 1.0d1**(-itol) .and. dabs(conv(2)) <1.0d1**(-itol) .and. dabs(conv(3)) < 1.0d1**(-itol)) exit
 
+        ! Abort if out of iterations
         if (iter == maxiter) call abort_cc('Calculation failed to converge.')
 
     enddo
