@@ -44,8 +44,8 @@ before_script:
 script:
   - eval $(psi4 --plugin-compile)
   - make
-  - psi4 tests/H8-0.1.dat
-  - cat tests/H8-0.1.out
+  - psi4 examples/H8-0.1.dat
+  - bash examples/test.sh
 
 after_success:
   - echo "Successful build!"

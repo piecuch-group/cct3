@@ -10,11 +10,6 @@ subroutine print_header()
     write(io,'(a)') '==========='
     call print_io(io)
 
-#ifdef VERSION
-    write(io,'(2x,a20,1x,a)') 'Git SHA', &
-     VERSION
-#endif
-
 end subroutine print_header
 
 subroutine print_calc_params(froz, occ_a, occ_b, total, actocc, actunocc, &
@@ -114,13 +109,13 @@ end subroutine print_summary
 
 
 subroutine print_date(note)
-      implicit none
-      character(len=*), intent(in) :: note
-      character(len=30) :: date
+    implicit none
+    character(len=*), intent(in) :: note
+    character(len=30) :: date
     character(len=800) :: io
 
-      call fdate(date)
-      write (io,'(a)') trim(note)//' '//trim(date)
+    call fdate(date)
+    write (io,'(a)') trim(note)//' '//trim(date)
     call print_io(io)
 
 

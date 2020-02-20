@@ -30,7 +30,8 @@
 
 /**
  * This header file wraps F90 routines to be used in C++.
- * It was adapted from the v2rdm_casscf Psi4 plugin (https://github.com/edeprince3/v2rdm_casscf)
+ * It was adapted from the v2rdm_casscf Psi4 plugin
+ * (https://github.com/edeprince3/v2rdm_casscf)
  */
 
 #ifndef FC_SYMBOL
