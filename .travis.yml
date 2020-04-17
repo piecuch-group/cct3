@@ -10,7 +10,7 @@ matrix:
   include:
 
   - env:
-    - PYTHON_VER='2.7'
+    - PYTHON_VER='3.7'
 
       #  - env:
       #    - PYTHON_VER='3.6'
@@ -29,12 +29,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - if [[ "$PYTHON_VER" == "2.7" ]]; then
-        conda create -n p4env python=$PYTHON_VER psi4 psi4-dev -c psi4 -c psi4/label/dev;
-    else
-        conda create -q -n p4env python=$PYTHON_VER ci-psi4 psi4 numpy=1.13 matplotlib jupyter scipy pylibefp -c psi4/label/dev -c psi4;
-    fi
-
+  - conda create -n p4env python=$PYTHON_VER psi4 psi4-dev -c psi4 -c psi4/label/dev
   - source activate p4env
   - conda list
 
