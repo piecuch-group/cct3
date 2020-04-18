@@ -77,23 +77,14 @@ keep_amps
 References
 ----------
 
-.. [1] J.E. Deustua, J. Shen, P. Piecuch, "CCT3: a PSI4 Plugin Which Performs Active-Space Coupled-Cluster CCSDt Calculations and Which Can Determine Noniterative Corrections to CCSDt Defining the CC(t;3) Approach."
+.. [1] \J.E. Deustua, J. Shen, P. Piecuch, "CCT3: a PSI4 Plugin Which Performs Active-Space Coupled-Cluster CCSDt Calculations and Which Can Determine Noniterative Corrections to CCSDt Defining the CC(t;3) Approach."
+.. [2] \P. Piecuch, "Active-Space Coupled-Cluster Methods," *Mol. Phys.* **108**, 2987-3015 (2010). DOI: http://dx.doi.org/10.1080/00268976.2010.522608.
 
-.. [2] P. Piecuch, "Active-Space Coupled-Cluster Methods," *Mol. Phys.* **108**, 2987-3015 (2010). DOI: http://dx.doi.org/10.1080/00268976.2010.522608.
-
-
-.. [3] N. Oliphant and L. Adamowicz, "The Implementation of the Multireference Coupled-Cluster Method Based on the Single-Reference Formalism," *J. Chem. Phys.* **96**, 3739-3744 (1992). https://doi.org/10.1063/1.461878.
-
-.. [4] P. Piecuch, N. Oliphant, and L. Adamowicz, "A State-Selective Multi-Reference Coupled-Cluster Theory Employing the Single-Reference Formalism," *J. Chem. Phys.* **99**, 1875-1900 (1993). DOI: http://dx.doi.org/10.1063/1.466179.
-
-.. [5] P. Piecuch, S.A. Kucharski, and R.J. Barlett, "Coupled-Cluster Methods with Internal and Semi-Internal Triply and Quadruply Excited Clusters: CCSDt and CCSDtq Approaches," *J. Chem. Phys.* **110**, 6103-6122 (1999). DOI: http://dx.doi.org/10.1063/1.478517.
-
-.. [6] J. Shen and P. Piecuch, "Biorthogonal Moment Expansions in Coupled-Cluster Theory: Review of Key Concepts and Merging the Renormalized and Active-Space Coupled-Cluster Methods," *Chem. Phys.* **401**, 180-202 (2012). DOI: http://dx.doi.org/10.1016/j.chemphys.2011.11.033.
-
-.. [7] J. Shen and P. Piecuch, "Combining Active-Space Coupled-Cluster Methods with Moment Energy Corrections via the CC(P;Q) Methodology, with Benchmark Calculations for Biradical Transition States," *J. Chem. Phys.* **136**, 144104-1 - 144104-16 (2012). DOI: http://dx.doi.org/10.1063/1.3700802.
-
-.. [8] P. Piecuch and M. Wloch, "Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian," *J. Chem. Phys.* **123**, 224105-1 - 224105-10 (2005). DOI: http://dx.doi.org/10.1063/1.2137318.
-
-.. [9] P. Piecuch, M. Wloch, J.R. Gour, and A. Kinal, "Single-Reference, Size-Extensive, Non-Iterative Coupled-cluster Approaches to Bond Breaking and Biradicals," *Chem. Phys. Lett.* **418**, 467-474 (2006). DOI: http://dx.doi.org/10.1016/j.cplett.2005.10.116.
-
-.. [10] M. Wloch, J.R. Gour, and P. Piecuch, "Extension of the Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian to Open-Shell Systems: A Benchmark Study," *J. Phys. Chem. A* **111**, 11359-11382 (2007). DOI: http://dx.doi.org/10.1021/jp0725351.
+.. [3] \N. Oliphant and L. Adamowicz, "The Implementation of the Multireference Coupled-Cluster Method Based on the Single-Reference Formalism," *J. Chem. Phys.* **96**, 3739-3744 (1992). https://doi.org/10.1063/1.461878.
+.. [4] \P. Piecuch, N. Oliphant, and L. Adamowicz, "A State-Selective Multi-Reference Coupled-Cluster Theory Employing the Single-Reference Formalism," *J. Chem. Phys.* **99**, 1875-1900 (1993). DOI: http://dx.doi.org/10.1063/1.466179.
+.. [5] \P. Piecuch, S.A. Kucharski, and R.J. Barlett, "Coupled-Cluster Methods with Internal and Semi-Internal Triply and Quadruply Excited Clusters: CCSDt and CCSDtq Approaches," *J. Chem. Phys.* **110**, 6103-6122 (1999). DOI: http://dx.doi.org/10.1063/1.478517.
+.. [6] \J. Shen and P. Piecuch, "Biorthogonal Moment Expansions in Coupled-Cluster Theory: Review of Key Concepts and Merging the Renormalized and Active-Space Coupled-Cluster Methods," *Chem. Phys.* **401**, 180-202 (2012). DOI: http://dx.doi.org/10.1016/j.chemphys.2011.11.033.
+.. [7] \J. Shen and P. Piecuch, "Combining Active-Space Coupled-Cluster Methods with Moment Energy Corrections via the CC(P;Q) Methodology, with Benchmark Calculations for Biradical Transition States," *J. Chem. Phys.* **136**, 144104-1 - 144104-16 (2012). DOI: http://dx.doi.org/10.1063/1.3700802.
+.. [8] \P. Piecuch and M. Wloch, "Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian," *J. Chem. Phys.* **123**, 224105-1 - 224105-10 (2005). DOI: http://dx.doi.org/10.1063/1.2137318.
+.. [9] \P. Piecuch, M. Wloch, J.R. Gour, and A. Kinal, "Single-Reference, Size-Extensive, Non-Iterative Coupled-cluster Approaches to Bond Breaking and Biradicals," *Chem. Phys. Lett.* **418**, 467-474 (2006). DOI: http://dx.doi.org/10.1016/j.cplett.2005.10.116.
+.. [10] \M. Wloch, J.R. Gour, and P. Piecuch, "Extension of the Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian to Open-Shell Systems: A Benchmark Study," *J. Phys. Chem. A* **111**, 11359-11382 (2007). DOI: http://dx.doi.org/10.1021/jp0725351.
