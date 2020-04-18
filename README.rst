@@ -33,17 +33,37 @@ which improves the results obtained with the conventional CCSD(T) approach
 without resorting to any multireference concepts and being at most twice as
 expensive as CCSD(T) [8]_, [9]_, [10]_.
 
-Compilation
------------
+Build
+-----
 
-A working version of PSI4 version 1.1 is required. To compile the plugin:
+To compile this plugin, a working version of PSI4 version 1.1 or greater is
+required. The easiest way to get a working copy is via the `conda
+<https://conda.io/docs/>`_ or `anaconda
+<https://www.continuum.io/downloads#linux>`_ environment (more on this `here
+<http://www.psicode.org/psi4manual/1.3.2/conda.html#faq-psi4pkg>`_). To use it,
+first create a new python 3 environment and activate it via:
 
-::
+.. code-block:: bash
+
+   $ conda create -n p4env python=3.7 psi4 psi4-dev -c psi4 -c psi4/label/dev
+   $ source activate p4env
+
+Next, get the source code for the CC(t;3) plugin and compile it using the
+following lines:
+
+.. code-block:: bash
 
    $ git clone https://gitlab.msu.edu/piecuch-group/psi4_cct3
    $ cd psi4_cct3
    $ `psi4 --plugin-compile`
    $ make
+
+Once this step is done, you should have a working copy of the plugin. You can
+run a test example with:
+
+.. code-block:: bash
+
+   $ psi4 examples/H8-0.1.dat
 
 Running
 -------
@@ -62,10 +82,10 @@ froz
    Number of frozen core molecular orbitals.
 act_occ
    Number of active occupied molecular orbitals counting from the Fermi level
-   down (e.g. LUMO, LUMO+1, LUMO+2, etc.).
+   down (e.g. HOMO, HOMO-1, HOMO-2, etc.).
 act_unocc
    Number of active unnocupied molecular orbitals counting from the Fermi level
-   up (e.g. HOMO, HOMO-1, HOMO-2, etc.).
+   up (e.g. LUMO, LUMO+1, LUMO+2, etc.).
 etol
    Energy convergence tolerance given as 10^-ETOL. Default is 10^-7
 max_iter
