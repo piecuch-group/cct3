@@ -6,7 +6,7 @@ CC(t;3) PSI4 Plugin
 The CCT3 plugin to PSI4 [1]_ is capable of executing a number of closed-
 and open-shell coupled-cluster (CC) calculations with up to triply excited (T3)
 clusters. Among them is the active-space CC approach abbreviated as CCSDt
-[2]_, [3]_, [4]_, [5]_, which approximates full CCSDT by selecting the dominant T3 amplitudes
+[2]_, [3]_, [4]_, [5]_, which approximates full CCSDT by selecting the dominant T\ :sub:`3` amplitudes
 via active orbitals, and the CC(t;3) method, which corrects the CCSDt energies
 for the remaining, predominantly dynamical, triple excitations that have not
 been captured by CCSDt [6]_, [7]_. The CC(t;3) approach belongs to a larger family
