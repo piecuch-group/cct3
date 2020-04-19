@@ -3,7 +3,7 @@ CC(t;3) PSI4 Plugin
 .. image:: https://travis-ci.org/piecuch-group/psi4_cct3.svg?branch=dev
     :target: https://travis-ci.org/piecuch-group/psi4_cct3
 
-The CCT3 plugin to PSI4 [1]_, [2]_ is capable of executing a number of closed-
+The CCT3 plugin to PSI4 [1]_ is capable of executing a number of closed-
 and open-shell coupled-cluster (CC) calculations with up to triply excited (T3)
 clusters. Among them is the active-space CC approach abbreviated as CCSDt
 [2]_, [3]_, [4]_, [5]_, which approximates full CCSDT by selecting the dominant T3 amplitudes
@@ -97,7 +97,7 @@ keep_amps
 References
 ----------
 
-.. [1] \J.E. Deustua, J. Shen, P. Piecuch, "CCT3: a PSI4 Plugin Which Performs Active-Space Coupled-Cluster CCSDt Calculations and Which Can Determine Noniterative Corrections to CCSDt Defining the CC(t;3) Approach."
+.. [1] \J.E. Deustua, J. Shen, P. Piecuch, "CCT3: A PSI4 Plugin Which Performs Active-Space Coupled-Cluster CCSDt Calculations and Which Can Determine Noniterative Corrections to CCSDt Defining the CC(t;3) Approach."
 .. [2] \P. Piecuch, "Active-Space Coupled-Cluster Methods," *Mol. Phys.* **108**, 2987-3015 (2010). DOI: http://dx.doi.org/10.1080/00268976.2010.522608.
 
 .. [3] \N. Oliphant and L. Adamowicz, "The Implementation of the Multireference Coupled-Cluster Method Based on the Single-Reference Formalism," *J. Chem. Phys.* **96**, 3739-3744 (1992). https://doi.org/10.1063/1.461878.
