@@ -201,11 +201,17 @@ int read_options(std::string name, Options &options)
         // Energy convergence tolerance
         options.add_int("ETOL", 7);
 
+        // Dimension of DIIS subspace
+        options.add_int("CCT3_DIIS", 5);
+
         // Max iterations
-        options.add_int("MAX_ITER", 1000);
+        options.add_int("MAX_ITER", 100);
 
         // Keep T vector file (amplitudes.moe)
         options.add_bool("KEEP_AMPS", false);
+
+        // Dimension of DIIS subspace
+        options.add_str("CALC_TYPE", "CCSD");
     }
 
     return true;
@@ -237,9 +243,10 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
     int actunocc = options.get_int("ACT_UNOCC");
     int etol = options.get_int("ETOL");
     int maxiter = options.get_int("MAX_ITER");
+    int cct3_diis = options.get_int("CCT3_DIIS");
+    int calc_type;
 
     bool keep_amps = options.get_bool("KEEP_AMPS");
-
     bool is_rhf = false;
 
     // Grab the global (default) PSIO object, for file I/O
@@ -255,6 +262,19 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
         is_rhf = false;
     } else {
         throw PSIEXCEPTION("SCF reference type not supported by CC(t;3)");
+    }
+
+    // Get calculation type number.
+    if (options.get_str("CALC_TYPE") == "CCSD") {
+        calc_type = 1;
+    } else if (options.get_str("CALC_TYPE") == "CR-CC") {
+        calc_type = 2;
+    } else if (options.get_str("CALC_TYPE") == "CCSD3A") {
+        calc_type = 3;
+    } else if (options.get_str("CALC_TYPE") == "CCT3") {
+        calc_type = 4;
+    } else {
+        calc_type = 1;
     }
 
 
@@ -353,10 +373,24 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
     psio->close(PSIF_LIBTRANS_DPD, PSIO_OPEN_OLD);
 
     // Execute CC program
-    do_cc(froz, socc, docc, norbs,
-            actocc, actunocc,
-            etol, maxiter, keep_amps, is_rhf,
-            onebody, twobody, rep_e, scf_e);
+    do_cc(
+            froz,
+            socc,
+            docc,
+            norbs,
+            actocc,
+            actunocc,
+            etol,
+            maxiter,
+            keep_amps,
+            is_rhf,
+            cct3_diis,
+            calc_type,
+            onebody,
+            twobody,
+            rep_e,
+            scf_e
+            );
 
     return ref_wfn;
 }

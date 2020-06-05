@@ -7,8 +7,15 @@
      &  VCHHHH,VCHHHP,VCHHPP,VCHPHP,VCHPPP,
      &  VAAPPP, VBAPPP, VBPAPP, VCAPPP)
 
+        implicit none
+
        integer n0, n1, n2, n3
-       integer k1, k2, k3, k4
+       integer k1, k2, k3, k4, k5, k6, k7, k8, k9, k0
+       integer k1a, k1b, k2a, k2b, k2c
+       integer k3a, k3b1, k3b2, k3b3, k3b4
+       integer k3c1, k3c2, k3c3, k3c4, k3d
+       integer i0, i1
+       integer m1, m2
        integer t_order
        integer t_size
        integer t_pos(t_order)
@@ -45,17 +52,6 @@
        real*8 VBAPPP(N2+1:N3,N1+1:N3,N2+1:N3,N1+1:M2)
        real*8 VBPAPP(N2+1:N3,N1+1:N3,N2+1:M2,N1+1:N3)
        real*8 VCAPPP(N2+1:N3,N2+1:N3,N2+1:N3,N2+1:M2)
-
-       real*8,allocatable::V2B(:,:,:,:)
-       real*8,allocatable::V2A(:,:,:,:)
-       real*8,allocatable::V2C(:,:,:,:)
-       real*8,allocatable::V1A(:,:)
-       real*8,allocatable::V1B(:,:)
-       real*8,allocatable::V3A(:,:,:,:,:,:)
-       real*8,allocatable::V3B(:,:,:,:,:,:)
-       real*8,allocatable::V3C(:,:,:,:,:,:)
-       real*8,allocatable::V3D(:,:,:,:,:,:)
-
 
        real*8,allocatable::HT1A(:,:)
        real*8,allocatable::HT1B(:,:)

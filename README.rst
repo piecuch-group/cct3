@@ -65,10 +65,11 @@ run a test example with:
 
    $ psi4 examples/H8-0.1.dat
 
-Running
--------
+Run
+---
 
-In order to run a CCSDt calculation, the following options have to be set within
+In order to run a CCSD, CR-CC(2,3), CCSDt, or CC(t;3) calculation, the following
+options have to be set within
 the scheme
 
 ::
@@ -89,10 +90,12 @@ act_unocc
 etol
    Energy convergence tolerance given as 10^-ETOL. Default is 10^-7
 max_iter
-   Maximum number of iterations. Default is 1000.
+   Maximum number of iterations. Default is 100.
 keep_amps
    If true, write down the converged cluster amplitudes to the file
    ``amplitudes.moe``.
+calc_type
+   Can be set to ``CCSD``, ``CR-CC``, ``CCSD3A``, or ``CCT3``. These options invoke CCSD, CR-CC(2,3), CCSDt, and CC(t;3) calculations, respectively. It not specified, the default is CCSD.
 
 References
 ----------

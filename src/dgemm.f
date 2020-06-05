@@ -6,6 +6,7 @@
 
       !print *, k1, k2, k3
       !call flush()
+      if (k1.eq.0 .or. k2.eq.0 .or. k3.eq.0) return
       call dgemm('t', 'n', K2, K1, K3, 1.0d0, B, K3, A, K3, 0.0d0,
      &     C, K2)
 
@@ -19,6 +20,7 @@
       !print *, k1, k3
       !call flush()
 
+      if (k1.eq.0 .or. k3.eq.0) return
       call dgemv('t', K3, K1, 1.0d0, A, K3, B, 1, 0.0d0, C, 1)
 
       end
@@ -30,6 +32,7 @@
 
       !print *, k2, k3
       !call flush()
+      if (k2.eq.0 .or. k3.eq.0) return
       call dgemv('t', K3, K2, 1.0d0, B, K3, A, 1, 0.0d0, C, 1)
 
       end

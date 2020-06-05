@@ -54,7 +54,7 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
     real(kind=8), allocatable :: D3D1(:,:,:)
     real(kind=8), allocatable :: D3D2(:,:,:)
 
-    call load_old_integrals(n1, n2, n3, &
+    call load_old_integrals(n0, n1, n2, n3, &
         FockR, FockB, IntR, IntM, IntB, &
         onebody, twobody)
 
@@ -75,39 +75,15 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
     H2B=0.0d0
     H2C=0.0d0
     rewind(iHBar)
-    read(ihbar) ((H1A(i,a),i=N0+1,N3),a=N0+1,N3)
-    read(ihbar) ((H1B(i,a),i=N0+1,N3),a=N0+1,N3)
-    read(ihbar) ((((H2A(i,j,a,b),i=N0+1,N3),j=N0+1,N3),a=N0+1,N3),b=N0+1,N3)
-    read(ihbar) ((((H2B(i,j,a,b),i=N0+1,N3),j=N0+1,N3),a=N0+1,N3),b=N0+1,N3)
-    read(ihbar) ((((H2C(i,j,a,b),i=N0+1,N3),j=N0+1,N3),a=N0+1,N3),b=N0+1,N3)
+    read(iHBar) H1A(N0+1:N3, N0+1:N3)
+    read(iHBar) H1B(N0+1:N3, N0+1:N3)
+    read(iHBar) H2A(N0+1:N3, N0+1:N3, N0+1:N3, N0+1:N3)
+    read(iHBar) H2B(N0+1:N3, N0+1:N3, N0+1:N3, N0+1:N3)
+    read(iHBar) H2C(N0+1:N3, N0+1:N3, N0+1:N3, N0+1:N3)
 
-    do i=N0+1,N1
-        do j=N0+1,N1
-            do a=N1+1,N3
-                do b=N1+1,N3
-                    H2A(b,a,j,i)=IntR(b,a,j,i)
-                enddo
-            enddo
-        enddo
-    enddo
-    do i=N0+1,N1
-        do j=N0+1,N2
-            do a=N1+1,N3
-                do b=N2+1,N3
-                    H2B(b,a,j,i)=IntM(b,a,j,i)
-                enddo
-            enddo
-        enddo
-    enddo
-    do i=N0+1,N2
-        do j=N0+1,N2
-            do a=N2+1,N3
-                do b=N2+1,N3
-                    H2C(b,a,j,i)=IntB(b,a,j,i)
-                enddo
-            enddo
-        enddo
-    enddo
+    H2A(n1+1:n3,n1+1:n3,n0+1:n1,n0+1:n1) = IntR(n1+1:n3,n1+1:n3,n0+1:n1,n0+1:n1)
+    H2B(n2+1:n3,n1+1:n3,n0+1:n2,n0+1:n1) = IntM(n2+1:n3,n1+1:n3,n0+1:n2,n0+1:n1)
+    H2C(n2+1:n3,n2+1:n3,n0+1:n2,n0+1:n2) = IntB(n2+1:n3,n2+1:n3,n0+1:n2,n0+1:n2)
 
     K1=N1-N0
     K3=N3-N1 !OCC
@@ -157,6 +133,10 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
     D3C2=0.0d0
     D3D1=0.0d0
     D3D2=0.0d0
+
+
+    call print_io('')
+    call print_date('  Starting MM correction calculation on')
 
     call Cal_D3(N0,N1,N2,N3, &
         H2A,H2B,H2C,t(K2A),t(K2B),t(K2C), &
@@ -226,6 +206,7 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
         enddo
     enddo
     deallocate(LH3,MM3)
+    call print_io('  -> aaa case done')
 
     allocate(LH3(N2+1:N3,N1+1:N3,N1+1:N3,N0+1:N2,N0+1:N1,N0+1:N1))
     LH3=0.0d0
@@ -280,6 +261,7 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
         enddo
     enddo
     deallocate(LH3,MM3)
+    call print_io('  -> aab case done')
 
     allocate(LH3(N2+1:N3,N2+1:N3,N1+1:N3,N0+1:N2,N0+1:N2,N0+1:N1))
     LH3=0.0d0
@@ -336,6 +318,7 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
         enddo
     enddo
     deallocate(LH3,MM3)
+    call print_io('  -> abb case done')
 
     allocate(LH3(N2+1:N3,N2+1:N3,N2+1:N3,N0+1:N2,N0+1:N2,N0+1:N2))
     LH3=0.0d0
@@ -392,6 +375,8 @@ subroutine correct_cc(n0, n1, n2, n3, m1, m2, t_size, t0, &
         enddo
     enddo
     deallocate(LH3,MM3)
+    call print_io('  -> bbb case done')
+    call print_date('  MM correction calculation finished on:')
 
     ccpq_energy = 0.0d0
     ccpq_energy(1) = e23a

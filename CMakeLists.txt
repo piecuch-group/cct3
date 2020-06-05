@@ -34,12 +34,16 @@ project(psi4-cct3 CXX Fortran)
 
 find_package(psi4 1.1 REQUIRED)
 
-set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -g -fbacktrace -ffixed-line-length-132" )
+# Debug
+# set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -fcheck=all -g -fbacktrace -ffixed-line-length-132" )
+
+set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -ffixed-line-length-132" )
 
 file(GLOB CCT3_F_SRC
         "src/*.f"
         "src/hbar/*.f"
         "src/cc/*.f"
+        "src/ccsd/*.f"
         "src/lcc/*.f"
         "src/*.f90"
         "src/*.F90"

@@ -47,40 +47,62 @@
 // CC fortran interface
 
 extern "C" {
-    void F77NAME(cc)(int &froz,
-		    int &socc,
-		    int &docc,
-		    int &orbs,
-		    int &actocc,
-		    int &actunocc,
-		    int &etol,
-		    int &maxiter,
-		    bool &keep_amps,
-		    bool &is_rhf,
-		    double *onebody,
-		    double *twobody,
-		    double &erepul,
-		    double &eref_psi4);
+    void F77NAME(cc)(
+                    int &froz,
+                    int &socc,
+                    int &docc,
+                    int &orbs,
+                    int &actocc,
+                    int &actunocc,
+                    int &etol,
+                    int &maxiter,
+                    bool &keep_amps,
+                    bool &is_rhf,
+                    int &cct3_diis,
+                    int &calc_type,
+                    double *onebody,
+                    double *twobody,
+                    double &erepul,
+                    double &eref_psi4
+                    );
 };
 
-inline void do_cc(int &froz,
-		  int &socc,
-		  int &docc,
-		  int &orbs,
-		  int &actocc,
-		  int &actunocc,
-		  int &etol,
-		  int &maxiter,
-		  bool &keep_amps,
-		  bool &is_rhf,
-		  double *onebody,
-		  double *twobody,
-		  double &erepul,
-		  double &eref_psi4){
+inline void do_cc(
+                int &froz,
+                int &socc,
+                int &docc,
+                int &orbs,
+                int &actocc,
+                int &actunocc,
+                int &etol,
+                int &maxiter,
+                bool &keep_amps,
+                bool &is_rhf,
+                int &cct3_diis,
+                int &calc_type,
+                double *onebody,
+                double *twobody,
+                double &erepul,
+                double &eref_psi4
+                ){
 
-    F77NAME(cc)(froz, socc, docc, orbs,
-		    actocc, actunocc,
-		    etol, maxiter, keep_amps, is_rhf,
-		    onebody, twobody, erepul, eref_psi4);
+        F77NAME(cc)(
+                        froz,
+                        socc,
+                        docc,
+                        orbs,
+                        actocc,
+                        actunocc,
+                        etol,
+                        maxiter,
+                        keep_amps,
+                        is_rhf,
+                        cct3_diis,
+                        calc_type,
+                        onebody,
+                        twobody,
+                        erepul,
+                        eref_psi4
+                        );
 };
 #endif

@@ -9,6 +9,7 @@
      & t1A,t1B,t2A,t2B,t2C,
      & t3A,t3B1,t3B2,t3B3,t3B4,t3C1,t3C2,t3C3,t3C4,t3D)
 C
+
        integer a,b,c,e,f,g,h,i,j,k,m,n,o,p
        real*8 CoeLeft,shift,PP
        real*8 FAHH(N0+1:N1,N0+1:N1)

@@ -80,15 +80,40 @@ subroutine print_calc_params(froz, occ_a, occ_b, total, actocc, actunocc, &
 
 end subroutine print_calc_params
 
-subroutine print_summary(e_hf, ecor, ccpq_energy)
+subroutine print_summary(e_hf, ecor, ccpq_energy, calc_type)
+
     real(kind=8), intent(in) :: e_hf, ecor
     real(kind=8), intent(in) :: ccpq_energy(4)
+
+    integer, intent(in) :: calc_type
+
+    character(len=30) :: calc_name_a
+    character(len=30) :: calc_name_b
     character(len=800) :: io
 
+    select case (calc_type)
+    case (1)
+        calc_name_a = "CCSD"
+        calc_name_b = "CCSD"
+
+    case (2)
+        calc_name_a = "CCSD"
+        calc_name_b = "CR-CC(2,3)"
+
+    case (3)
+        calc_name_a = "CCSDt"
+        calc_name_b = "CCSDt"
+
+    case (4)
+        calc_name_a = "CCSDt"
+        calc_name_b = "CC(t;3)"
+
+    end select
+
     call print_io('')
-    write(io,'(a)') 'CC(t;3) Calculation Summary (Eh)'
+    write(io,'(a)') trim(calc_name_b)//' Calculation Summary (Eh)'
     call print_io(io)
-    write(io,'(a)') '--------------------------------'
+    write(io,'(a)') '-----------------------------------'
     call print_io(io)
     call print_io('')
 
@@ -98,12 +123,15 @@ subroutine print_summary(e_hf, ecor, ccpq_energy)
     call print_io(io)
     write(io,'(5x,a12,32x,f18.12)') 'Reference', e_hf
     call print_io(io)
-    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CCSDt', ecor,  e_hf + ecor
+    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') trim(calc_name_a), ecor,  e_hf + ecor
     call print_io(io)
-    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CC(t;3),A', ecor + ccpq_energy(1),  e_hf + ecor + ccpq_energy(1)
-    call print_io(io)
-    write(io,'(5x,a12,7x,f18.12,7x,f18.12)') 'CC(t;3)', ecor + ccpq_energy(4),  e_hf + ecor + ccpq_energy(4)
-    call print_io(io)
+
+    if (calc_type == 2 .or. calc_type == 4) then
+        write(io,'(5x,a12,7x,f18.12,7x,f18.12)') trim(calc_name_b)//',A', ecor + ccpq_energy(1),  e_hf + ecor + ccpq_energy(1)
+        call print_io(io)
+        write(io,'(5x,a12,7x,f18.12,7x,f18.12)') trim(calc_name_b), ecor + ccpq_energy(4),  e_hf + ecor + ccpq_energy(4)
+        call print_io(io)
+    endif
 
 end subroutine print_summary
 
@@ -124,26 +152,30 @@ end subroutine print_date
 subroutine print_iter_head()
     character(len=800) :: io
 
-    write(io,'(2x,a4,3(a15),a16)') 'It.',  'E (Corr)', 'dE', 'Residuum', 'CPU Time'
+    write(io,'(2x,a4,3(a15),a16)') 'It.',  'E (Corr)', 'dE', 'Residuum', 'Wall Time'
     call print_io(io)
     write(io,'(2x,65("-"))')
     call print_io(io)
 end subroutine print_iter_head
 
 subroutine print_iteration(iter, ecor, energy_diff, res, prev_time)
+
+    use utils, only: get_wall_time
+
     integer, intent(in) :: iter
     real(kind=8), intent(in) :: ecor
     real(kind=8), intent(in) :: energy_diff
     real(kind=8), intent(in) :: res
     real(kind=8), intent(in) :: prev_time
-    real(kind=8) :: cputime
+    real(kind=8) :: walltime
     character(len=800) :: io
 
     real(kind=8) :: nsec
     integer :: nmin
 
-    call cpu_time(cputime)
-    nsec=cputime - prev_time
+    !call cpu_time(cputime)
+    walltime = get_wall_time()
+    nsec=walltime - prev_time
     nmin=int(nsec) / 60
     nsec=nsec-real(nmin, kind=8)*60.0d0
 

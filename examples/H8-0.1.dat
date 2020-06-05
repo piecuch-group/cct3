@@ -38,6 +38,7 @@ set psi4_cct3 {
   act_occ 1
   act_unocc 1
   etol 16
+  calc_type 'CCT3'
 }
 
 energy('psi4_cct3')

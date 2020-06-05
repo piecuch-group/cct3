@@ -1409,7 +1409,7 @@ C
        call EGEMM(I1,I2,I3,D1,F2,Z27)
        deallocate(D1)
        deallocate(F2)
-C
+
        call
      & sum1342(N1,M2,N1,M2,N0,M1,N0,M1,V2A,Z27,-1.000)
        deallocate(Z27)

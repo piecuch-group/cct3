@@ -1,6 +1,20 @@
-subroutine cc(froz, socc, docc, orbs, actocc_in, actunocc_in, &
-        etol, maxiter, keep_amps, ifrhf, &
-    onebody, twobody, erepul, eref_psi4)
+subroutine cc(&
+        froz, &
+        socc, &
+        docc, &
+        orbs, &
+        actocc_in, &
+        actunocc_in, &
+        etol, &
+        maxiter, &
+        keep_amps, &
+        ifrhf, &
+        diis_space, &
+        calc_type, &
+        onebody, &
+        twobody, &
+        erepul, &
+        eref_psi4)
 
     ! Wrapper between PSI4 and the CC(t;3) program. It handles molecular data,
     ! including one- and two-body integrals.
@@ -27,13 +41,13 @@ subroutine cc(froz, socc, docc, orbs, actocc_in, actunocc_in, &
     !    twobody: two-body moleculars integrals coming from SCF calculations in PSI4.
     !    eref_psi4: reference energy from SCF calculations in PSI4.
 
-    ! In:
-    !    sys:
-
     use, intrinsic :: iso_fortran_env, only: error_unit
     use :: iso_c_binding, only: c_char, c_null_char
 
-    use integrals, only: write_integrals
+    use const, only: p
+
+    use integrals, only: write_integrals, write_integrals_dbg
+    use driver, only: run_cc
 
     implicit none
 
@@ -45,39 +59,36 @@ subroutine cc(froz, socc, docc, orbs, actocc_in, actunocc_in, &
     integer, intent(in) :: actocc_in, actunocc_in
 
     ! Integrals
-    real(kind=8), intent(in) :: onebody(orbs, orbs)
-    real(kind=8), intent(in) :: twobody(orbs, orbs, orbs, orbs)
+    real(p), intent(in) :: onebody(orbs, orbs)
+    real(p), intent(in) :: twobody(orbs, orbs, orbs, orbs)
 
-    real(kind=8), intent(in) :: erepul, eref_psi4
-    real(kind=8) :: eref
-    real(kind=8) :: ccpq_energy(4)
+    real(p), intent(in) :: erepul, eref_psi4
+    real(p) :: eref
+    real(p) :: ccpq_energy(4)
 
-    integer :: diis_space
     integer :: occ_a, occ_b
 
     ! Calculation parameters
+    integer, intent(in) :: calc_type
     integer, intent(in) :: etol
     integer, intent(in) :: maxiter
     logical, intent(in) :: keep_amps
     logical, intent(in) :: ifrhf
-    real(kind=8) :: shift
+    integer, intent(in) :: diis_space
+    real(p) :: shift
     character(len=100) :: label
 
     logical :: restart
-    integer :: ifr, idiis
     integer :: itol
     integer :: actocc, actunocc
 
     ! CC variables
-    real(kind=8) :: ecor
-
-    ! IO and filemanagement
-    character(len=500) :: io
+    real(p) :: ecor
 
     call print_header()
 
-    label = 'test'
-    diis_space = 5
+    ! [TODO] change this
+    label = ''
     restart = .false.
 
     ! [TODO] these are the variables needed
@@ -90,18 +101,26 @@ subroutine cc(froz, socc, docc, orbs, actocc_in, actunocc_in, &
 
     ! [TODO] the C arrays could be deallocated
     call write_integrals(onebody, twobody, orbs)
+    !call write_integrals_dbg(erepul, onebody, twobody, orbs)
 
+    ! Set active space
     actocc = max(occ_b-actocc_in, froz)
     actunocc = min(occ_a+actunocc_in, orbs)
 
+    ! Zero active space if CCSD or CR-CC(2,3)
+    if (calc_type == 1 .or. calc_type == 2) then
+        actocc = occ_b
+        actunocc = orbs
+    endif
+
     ! Open binary file
-    call solve_cc(occ_a, occ_b, orbs, froz, actocc, actunocc, &
-        shift,itol, &
+    call run_cc(occ_a, occ_b, orbs, froz, actocc, actunocc, &
+        shift, itol, &
         erepul, eref, ecor, ccpq_energy, &
-        diis_space, restart, maxiter, &
+        diis_space, restart, maxiter, calc_type, &
         'onebody.inp', 'twobody.inp', label)
 
 
-    call print_summary(erepul + eref, ecor, ccpq_energy)
+    call print_summary(erepul + eref, ecor, ccpq_energy, calc_type)
 
 end subroutine cc
