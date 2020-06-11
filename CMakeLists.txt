@@ -37,7 +37,7 @@ find_package(psi4 1.1 REQUIRED)
 # Debug
 # set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -fcheck=all -g -fbacktrace -ffixed-line-length-132" )
 
-set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -ffixed-line-length-132" )
+set(CMAKE_Fortran_FLAGS  "${CMAKE_CXX_FLAGS} -ffixed-line-length-132" )
 
 file(GLOB CCT3_F_SRC
         "src/*.f"
