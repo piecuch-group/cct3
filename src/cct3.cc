@@ -189,29 +189,29 @@ int read_options(std::string name, Options &options)
     if (name == "PSI4_CCT3" || options.read_globals()) {
         // [TODO] add shifts, diis control and rhf vs rohf
 
-        // Frozen occupied orbitals
+        /*- Number of frozen core molecular orbitals. -*/
         options.add_int("FROZ", 0);
 
-        // Active occupied orbitals
+        /*- Number of active occupied molecular orbitals counting from the Fermi level down (e.g. HOMO, HOMO-1, HOMO-2, etc.). -*/
         options.add_int("ACT_OCC", 1);
 
-        // Active unoccupied orbitals
+        /*- Number of active unnocupied molecular orbitals counting from the Fermi level up (e.g. LUMO, LUMO+1, LUMO+2, etc.). -*/
         options.add_int("ACT_UNOCC", 1);
 
-        // Energy convergence tolerance
+        /*- Energy convergence tolerance given as 10^-ETOL. -*/
         options.add_int("ETOL", 7);
 
         // Dimension of DIIS subspace
         options.add_int("CCT3_DIIS", 5);
 
-        // Max iterations
+        /*- Maximum number of CC iterations. -*/
         options.add_int("MAX_ITER", 100);
 
-        // Keep T vector file (amplitudes.moe)
+        /*- Do write the converged cluster amplitudes (T vectors) to the file amplitudes.moe. -*/
         options.add_bool("KEEP_AMPS", false);
 
-        // Dimension of DIIS subspace
-        options.add_str("CALC_TYPE", "CCSD");
+        /*- Invoke CCSD, CR-CC(2,3), CCSDt, and CC(t;3) calculations, respectively. -*/
+        options.add_str("CALC_TYPE", "CCSD", "CCSD CR-CC CCSD3A CCT3");
     }
 
     return true;
@@ -279,7 +279,7 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
 
 
     // Get reference energy and grab the molecule pointer
-    scf_e = ref_wfn->reference_energy();
+    scf_e = ref_wfn->energy();
     std::shared_ptr<Molecule> molecule = ref_wfn->molecule();
 
     // Read quantum system sizes
@@ -373,7 +373,7 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
     psio->close(PSIF_LIBTRANS_DPD, PSIO_OPEN_OLD);
 
     // Execute CC program
-    do_cc(
+    double corl_e = do_cc(
             froz,
             socc,
             docc,
@@ -392,6 +392,8 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
             scf_e
             );
 
+    ref_wfn->set_scalar_variable("CURRENT CORRELATION ENERGY", corl_e);
+    ref_wfn->set_energy(scf_e + corl_e);
     return ref_wfn;
 }
 

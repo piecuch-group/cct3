@@ -14,7 +14,8 @@ subroutine cc(&
         onebody, &
         twobody, &
         erepul, &
-        eref_psi4)
+        eref_psi4, &
+        rval)
 
     ! Wrapper between PSI4 and the CC(t;3) program. It handles molecular data,
     ! including one- and two-body integrals.
@@ -63,6 +64,7 @@ subroutine cc(&
     real(p), intent(in) :: twobody(orbs, orbs, orbs, orbs)
 
     real(p), intent(in) :: erepul, eref_psi4
+    real(p), intent(out) :: rval
     real(p) :: eref
     real(p) :: ccpq_energy(4)
 
@@ -122,5 +124,11 @@ subroutine cc(&
 
 
     call print_summary(erepul + eref, ecor, ccpq_energy, calc_type)
+
+    if (calc_type == 2 .or. calc_type == 4) then
+        rval = ecor + ccpq_energy(4)
+    else
+        rval = ecor
+    endif
 
 end subroutine cc

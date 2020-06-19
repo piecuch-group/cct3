@@ -63,11 +63,12 @@ extern "C" {
                     double *onebody,
                     double *twobody,
                     double &erepul,
-                    double &eref_psi4
+                    double &eref_psi4,
+                    double &rval
                     );
 };
 
-inline void do_cc(
+inline double do_cc(
                 int &froz,
                 int &socc,
                 int &docc,
@@ -86,6 +87,7 @@ inline void do_cc(
                 double &eref_psi4
                 ){
 
+        double rval = 0.0;
         F77NAME(cc)(
                         froz,
                         socc,
@@ -102,7 +104,9 @@ inline void do_cc(
                         onebody,
                         twobody,
                         erepul,
-                        eref_psi4
+                        eref_psi4,
+                        rval
                         );
+        return rval;
 };
 #endif

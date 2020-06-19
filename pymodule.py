@@ -57,6 +57,10 @@ def run_cct3(name, **kwargs):
     # Please note that setting the reference wavefunction in this way is ONLY for plugins
     cct3_wfn = psi4.core.plugin('psi4_cct3.so', ref_wfn)
 
+    # Shove variables into global space
+    for k, v in cct3_wfn.variables().items():
+        psi4.core.set_variable(k, v)
+
     return cct3_wfn
 
 
