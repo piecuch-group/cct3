@@ -4,13 +4,17 @@ from psi4.tests.utils import compare_values
 import psi4_cct3
 
 
-@pytest.mark.parametrize("calc,eneprim,enesec", [
-    ("ccsd", "CCSD", "CCSD"),
-    ("cr-cc", "CR-CC(2,3)", "CCSD"),
-    ("ccsd3a", "CCSDt", "CCSDt"),
-    ("cct3", "CC(t;3)", "CCSDt"),
+@pytest.mark.parametrize("call,keyw,eneprim,enesec", [
+    ("ccsd", {"qc_module": "cct3"}, "CCSD", "CCSD"),
+    ("CR-cc(2,3)", {}, "CR-CC(2,3)", "CCSD"),
+    ("CCSD_lct", {}, "CCSDt", "CCSDt"),
+    ("CC(T;3)", {}, "CC(t;3)", "CCSDt"),
+    ("psi4_cct3", {"psi4_cct3__calc_type": "ccsd"}, "CCSD", "CCSD"),
+    ("psi4_cct3", {"psi4_cct3__calc_type": "cr-cc"}, "CR-CC(2,3)", "CCSD"),
+    ("psi4_cct3", {"psi4_cct3__calc_type": "ccsd3a"}, "CCSDt", "CCSDt"),
+    ("psi4_cct3", {"psi4_cct3__calc_type": "cct3"}, "CC(t;3)", "CCSDt"),
 ])
-def test_cct3_methods(calc, eneprim, enesec):
+def test_cct3_methods(call, keyw, eneprim, enesec):
     import psi4
     psi4.geometry("""
         units bohr
@@ -46,17 +50,11 @@ def test_cct3_methods(calc, eneprim, enesec):
         "psi4_cct3__act_occ": 1,
         "psi4_cct3__act_unocc": 1,
         "psi4_cct3__etol": 16,
-        "psi4_cct3__calc_type": calc,
         "basis": "anonymous1234",
     })
+    psi4.set_options(keyw)
 
-    #set {
-    #    e_convergence 11
-    #    d_convergence  10
-    #    r_convergence 10
-    #}
-
-    ene, wfn = psi4.energy("psi4_cct3", return_wfn=True)
+    ene, wfn = psi4.energy(call, return_wfn=True)
     psi4.core.print_variables()
     
     ref = {

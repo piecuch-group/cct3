@@ -42,7 +42,20 @@ def run_cct3(name, **kwargs):
     lowername = name.lower()
     kwargs = p4util.kwargs_lower(kwargs)
 
+    optstash = p4util.OptionsState(
+        ['PSI4_CCT3', 'CALC_TYPE'])
+
     # Your plugin's psi4 run sequence goes here
+    if lowername == "psi4_cct3":
+        pass
+    elif lowername == "ccsd":
+        psi4.core.set_local_option("PSI4_CCT3", "CALC_TYPE", "CCSD")
+    elif lowername == "cr-cc(2,3)":
+        psi4.core.set_local_option("PSI4_CCT3", "CALC_TYPE", "CR-CC")
+    elif lowername == "ccsd_lct":  # CCSDt
+        psi4.core.set_local_option("PSI4_CCT3", "CALC_TYPE", "CCSD3A")
+    elif lowername == "cc(t;3)":
+        psi4.core.set_local_option("PSI4_CCT3", "CALC_TYPE", "CCT3")
 
     # Compute a SCF reference, a wavefunction is return which holds the molecule used, orbitals
     # Fock matrices, and more
@@ -61,9 +74,15 @@ def run_cct3(name, **kwargs):
     for k, v in cct3_wfn.variables().items():
         psi4.core.set_variable(k, v)
 
+    optstash.restore()
+
     return cct3_wfn
 
 
 # Integration with driver routines
 psi4.driver.procedures['energy']['psi4_cct3'] = run_cct3
+# CCSD is managed method. add `qc_module='cct3'` to access through this plugin
+psi4.driver.procedures['energy']['cr-cc(2,3)'] = run_cct3
+psi4.driver.procedures['energy']['ccsd_lct'] = run_cct3
+psi4.driver.procedures['energy']['cc(t;3)'] = run_cct3
 
