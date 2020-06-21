@@ -225,6 +225,8 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
     double ints_tol = 0.0;
     double scf_e;
     double rep_e;
+    double corl_e = 0.0;
+    double corl_e_sec = 0.0;
     std::array<double, 3> dipole_field = {0.0, 0.0, 0.0};
 
     // Aux vars
@@ -373,7 +375,7 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
     psio->close(PSIF_LIBTRANS_DPD, PSIO_OPEN_OLD);
 
     // Execute CC program
-    double corl_e = do_cc(
+    do_cc(
             froz,
             socc,
             docc,
@@ -389,11 +391,32 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
             onebody,
             twobody,
             rep_e,
-            scf_e
+            scf_e,
+            corl_e,
+            corl_e_sec
             );
+
+    std::string eneprim, enesec;
+    if (calc_type == 1) {
+        enesec = "CCSD";
+        eneprim = "CCSD";
+    } else if (calc_type == 2) {
+        enesec = "CCSD";
+        eneprim = "CR-CC(2,3)";
+    } else if (calc_type == 3) {
+        enesec = "CCSDt";
+        eneprim = "CCSDt";
+    } else if (calc_type == 4) {
+        enesec = "CCSDt";
+        eneprim = "CC(t;3)";
+    }
 
     ref_wfn->set_scalar_variable("CURRENT CORRELATION ENERGY", corl_e);
     ref_wfn->set_energy(scf_e + corl_e);
+    ref_wfn->set_scalar_variable(eneprim + " CORRELATION ENERGY", corl_e);
+    ref_wfn->set_scalar_variable(eneprim + " TOTAL ENERGY", scf_e + corl_e);
+    ref_wfn->set_scalar_variable(enesec + " CORRELATION ENERGY", corl_e_sec);
+    ref_wfn->set_scalar_variable(enesec + " TOTAL ENERGY", scf_e + corl_e_sec);
     return ref_wfn;
 }
 

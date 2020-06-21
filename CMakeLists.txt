@@ -273,6 +273,13 @@ install(FILES pymodule.py LICENSE README.rst
               ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
         DESTINATION ${PYMOD_INSTALL_FULLDIR})
 
+install(DIRECTORY tests/
+        DESTINATION ${PYMOD_INSTALL_FULLDIR}/tests
+        FILES_MATCHING PATTERN "conftest.py"
+                       PATTERN "test_*.py"
+        PATTERN ".pytest_cache" EXCLUDE
+        PATTERN "__pycache__" EXCLUDE)
+
 # <<< Export Config >>>
 
 # GNUInstallDirs "DATADIR" wrong here; CMake search path wants "share".

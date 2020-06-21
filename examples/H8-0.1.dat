@@ -42,5 +42,4 @@ set psi4_cct3 {
 }
 
 ene = energy("psi4_cct3")
-compare_values(-4.220587742726, item, 10, "CC(t;3) energy")
-
+compare_values(-4.220587742726, ene, 10, "CC(t;3) energy")
