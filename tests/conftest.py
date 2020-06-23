@@ -22,6 +22,7 @@ def tear_down():
                 'pytest_output.dat',
                 'pytest_output.*grad',
                 '*pcmsolver.inp', 'PEDRA.OUT*', 'timer.dat',
+                'hbar.bin', 'l_vec.bin', 'onebody.inp', 'PA', 'PB', 'PC','t_vec.bin', 'twobody.inp',
                 'FCIDUMP_SCF', 'FCIDUMP_MP2']
     pytest_scratches = []
     for pat in patterns:

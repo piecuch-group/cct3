@@ -1,7 +1,7 @@
 /*
  * @BEGIN LICENSE
  *
- * psi4_cct3 by Emiliano Deustua, a plugin to:
+ * cct3 by Emiliano Deustua, a plugin to:
  *
  * Psi4: an open-source quantum chemistry software package
  *
@@ -52,7 +52,7 @@
 // This allows us to be lazy in getting the spaces in DPD calls
 #define ID(x) ints.DPD_ID(x)
 
-namespace psi{ namespace psi4_cct3{
+namespace psi{ namespace cct3{
 
 // Insertion sort algorithm adapted from HANDE and Rossetta
 void insertion_sort(double* sp_eigv, int* sp_ord, int* sp_ord_inv, int norbs) {
@@ -186,7 +186,7 @@ void F77NAME(print_psi4) (const char *string)
 extern "C" PSI_API
 int read_options(std::string name, Options &options)
 {
-    if (name == "PSI4_CCT3" || options.read_globals()) {
+    if (name == "CCT3" || options.read_globals()) {
         // [TODO] add shifts, diis control and rhf vs rohf
 
         /*- Number of frozen core molecular orbitals. -*/
@@ -219,7 +219,7 @@ int read_options(std::string name, Options &options)
 
 
 extern "C" PSI_API
-SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
+SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
 {
     // Definitions
     double ints_tol = 0.0;
@@ -411,6 +411,7 @@ SharedWavefunction psi4_cct3(SharedWavefunction ref_wfn, Options& options)
         eneprim = "CC(t;3)";
     }
 
+    ref_wfn->set_module("cct3");
     ref_wfn->set_scalar_variable("CURRENT CORRELATION ENERGY", corl_e);
     ref_wfn->set_energy(scf_e + corl_e);
     ref_wfn->set_scalar_variable(eneprim + " CORRELATION ENERGY", corl_e);

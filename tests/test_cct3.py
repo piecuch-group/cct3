@@ -1,7 +1,7 @@
 import pytest
 
 from psi4.tests.utils import compare_values
-import psi4_cct3
+import cct3
 
 
 @pytest.mark.parametrize("call,keyw,eneprim,enesec", [
@@ -9,10 +9,10 @@ import psi4_cct3
     ("CR-cc(2,3)", {}, "CR-CC(2,3)", "CCSD"),
     ("CCSD_lct", {}, "CCSDt", "CCSDt"),
     ("CC(T;3)", {}, "CC(t;3)", "CCSDt"),
-    ("psi4_cct3", {"psi4_cct3__calc_type": "ccsd"}, "CCSD", "CCSD"),
-    ("psi4_cct3", {"psi4_cct3__calc_type": "cr-cc"}, "CR-CC(2,3)", "CCSD"),
-    ("psi4_cct3", {"psi4_cct3__calc_type": "ccsd3a"}, "CCSDt", "CCSDt"),
-    ("psi4_cct3", {"psi4_cct3__calc_type": "cct3"}, "CC(t;3)", "CCSDt"),
+    ("cct3", {"cct3__calc_type": "ccsd"}, "CCSD", "CCSD"),
+    ("cct3", {"cct3__calc_type": "cr-cc"}, "CR-CC(2,3)", "CCSD"),
+    ("cct3", {"cct3__calc_type": "ccsd3a"}, "CCSDt", "CCSDt"),
+    ("cct3", {"cct3__calc_type": "cct3"}, "CC(t;3)", "CCSDt"),
 ])
 def test_cct3_methods(call, keyw, eneprim, enesec):
     import psi4
@@ -46,10 +46,10 @@ def test_cct3_methods(call, keyw, eneprim, enesec):
     psi4.driver.qcdb.libmintsbasisset.basishorde["ANONYMOUS1234"] = basisspec_psi4_yo__anonymous1234
 
     psi4.set_options({
-        "psi4_cct3__froz": 0,
-        "psi4_cct3__act_occ": 1,
-        "psi4_cct3__act_unocc": 1,
-        "psi4_cct3__etol": 16,
+        "cct3__froz": 0,
+        "cct3__act_occ": 1,
+        "cct3__act_unocc": 1,
+        "cct3__etol": 16,
         "basis": "anonymous1234",
     })
     psi4.set_options(keyw)
@@ -112,3 +112,6 @@ def test_cct3_methods(call, keyw, eneprim, enesec):
         psi4.core.variable(f"{enesec} correlation energy"),
     ]:
         assert compare_values(ref["corl"][enesec], item, atol, f"{enesec} corl energy")
+
+    assert wfn.module() == "cct3"
+

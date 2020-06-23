@@ -1,11 +1,11 @@
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
-project(psi4_cct3
+project(cct3
         VERSION 0.1
         LANGUAGES CXX Fortran)
-set(psi4_cct3_AUTHORS      "Emiliano Deustua")
-set(psi4_cct3_DESCRIPTION  "Active-space coupled-cluster CCSDt and non-iterative corrections to CCSDt defining the CC(t;3) approach plugin to Psi4")
-set(psi4_cct3_URL          "https://github.com/piecuch-group/psi4_cct3")
-set(psi4_cct3_LICENSE      "LGPL-3.0")
+set(cct3_AUTHORS      "Emiliano Deustua")
+set(cct3_DESCRIPTION  "Active-space coupled-cluster CCSDt and non-iterative corrections to CCSDt defining the CC(t;3) approach plugin to Psi4")
+set(cct3_URL          "https://github.com/piecuch-group/cct3")
+set(cct3_LICENSE      "LGPL-3.0")
 
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -21,7 +21,7 @@ find_package(psi4 1.1 REQUIRED)
 set(PN ${PROJECT_NAME})
 
 # PYMOD_INSTALL_LIBDIR If set, installs python modules to
-#                      ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/psi4_cct3 rather than
+#                      ${CMAKE_INSTALL_LIBDIR}${PYMOD_INSTALL_LIBDIR}/cct3 rather than
 #                      the default read off parent Psi4
 
 #   install alongside psi4 module by default, but overrideable
@@ -57,7 +57,7 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -extend-source 132")
 endif()
 
-add_psi4_plugin(psi4_cct3
+add_psi4_plugin(cct3
     src/cct3.cc
     src/Cal_D3.f
     src/cc_utils.f
@@ -259,13 +259,13 @@ add_psi4_plugin(psi4_cct3
     src/wrapper_psi4.f90
 )
 
-target_link_libraries(psi4_cct3 PRIVATE ${LIBC_INTERJECT})
+target_link_libraries(cct3 PRIVATE ${LIBC_INTERJECT})
 
 configure_file(__init__.py.in __init__.py @ONLY)
 
 # <<<  Install  >>>
 
-install(TARGETS psi4_cct3
+install(TARGETS cct3
         EXPORT "${PN}Targets"
         LIBRARY DESTINATION ${PYMOD_INSTALL_FULLDIR})
 
