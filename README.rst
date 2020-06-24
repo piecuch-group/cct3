@@ -53,8 +53,8 @@ following lines:
 
 .. code-block:: bash
 
-   $ git clone https://gitlab.msu.edu/piecuch-group/psi4_cct3
-   $ cd psi4_cct3
+   $ git clone https://github.com/piecuch-group/cct3
+   $ cd cct3
    $ `psi4 --plugin-compile`
    $ make
 

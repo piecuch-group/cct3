@@ -127,9 +127,12 @@ subroutine cc(&
     call print_summary(erepul + eref, ecor, ccpq_energy, calc_type)
 
     if (calc_type == 2 .or. calc_type == 4) then
+        ! If the method-of-moments (MM) correction was calculated
+        ! return both CCSDt/CCSD and CC(t;3)/CR-CC(2,3) correlation energies
         eprim = ecor + ccpq_energy(4)
         esec = ecor
     else
+        ! If no MM, return the same energy twice
         eprim = ecor
         esec = ecor
     endif

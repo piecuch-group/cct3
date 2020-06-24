@@ -1,7 +1,7 @@
 #
 # @BEGIN LICENSE
 #
-# psi4_cct3 by Emiliano Deustua, a plugin to:
+# psi4_cct3 by J. Emiliano Deustua, a plugin to:
 #
 # Psi4: an open-source quantum chemistry software package
 #
@@ -32,7 +32,7 @@
 
 """
 __version__ = '0.1'
-__author__  = "Emiliano Deustua"
+__author__  = "J. Emiliano Deustua"
 
 # Load Psi4
 psi4_sys_path = '@psi4_SYS_PATH@'
@@ -43,7 +43,7 @@ sys.path.append(psi4_sys_path)
 from .pymodule import *
 
 # Load C++ Pybind11 plugin
-#from .psi4_cct3 import *
+#from .cct3 import *
 
 # Load C++ plugin
 import os

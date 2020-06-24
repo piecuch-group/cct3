@@ -39,8 +39,8 @@ before_script:
 script:
   - eval $(psi4 --plugin-compile)
   - make
+  - export PYTHONPATH=$(realpath ../):$PYTHONPATH
   - psi4 examples/H8-0.1.dat
-  - bash examples/test.sh
 
 after_success:
   - echo "Successful build!"

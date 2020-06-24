@@ -2,7 +2,7 @@ cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from proje
 project(cct3
         VERSION 0.1
         LANGUAGES CXX Fortran)
-set(cct3_AUTHORS      "Emiliano Deustua")
+set(cct3_AUTHORS      "J. Emiliano Deustua, Jun Shen, Piotr Piecuch")
 set(cct3_DESCRIPTION  "Active-space coupled-cluster CCSDt and non-iterative corrections to CCSDt defining the CC(t;3) approach plugin to Psi4")
 set(cct3_URL          "https://github.com/piecuch-group/cct3")
 set(cct3_LICENSE      "LGPL-3.0")

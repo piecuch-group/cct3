@@ -1,7 +1,7 @@
 #
 # @BEGIN LICENSE
 #
-# cct3 by Emiliano Deustua, a plugin to:
+# cct3 by J. Emiliano Deustua, a plugin to:
 #
 # Psi4: an open-source quantum chemistry software package
 #
