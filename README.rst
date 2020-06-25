@@ -1,7 +1,7 @@
 CC(t;3) PSI4 Plugin 
 ===================
-.. image:: https://travis-ci.org/piecuch-group/psi4_cct3.svg?branch=dev
-    :target: https://travis-ci.org/piecuch-group/psi4_cct3
+.. image:: https://travis-ci.org/piecuch-group/cct3.svg?branch=dev
+    :target: https://travis-ci.org/piecuch-group/cct3
 
 The CCT3 plugin to PSI4 [1]_ is capable of executing a number of closed-
 and open-shell coupled-cluster (CC) calculations with up to triply excited (T3)
