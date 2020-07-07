@@ -411,10 +411,6 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
         eneprim = "CC(t;3)";
     }
 
-    // TODO: deal with this after the corresponding version of
-    // PSI4 is released
-    //ref_wfn->set_module("cct3");
-
     ref_wfn->set_scalar_variable("CURRENT CORRELATION ENERGY", corl_e);
     ref_wfn->set_energy(scf_e + corl_e);
     ref_wfn->set_scalar_variable("CURRENT ENERGY", scf_e + corl_e);
