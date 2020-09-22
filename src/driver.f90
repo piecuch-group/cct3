@@ -147,7 +147,7 @@ contains
                 twobody, &
                 ccpq_energy)
 
-            close(hbar_unit)
+            close(hbar_unit,status='delete')
             deallocate(t2)
 
         case(3)
@@ -242,10 +242,14 @@ contains
                 twobody, &
                 ccpq_energy)
 
-            close(hbar_unit)
+            close(hbar_unit,status='delete')
             deallocate(t2)
 
         end select
+        ! clean up
+        close(250,status='delete') ! PA
+        close(251,status='delete') ! PB
+        close(252,status='delete') ! PC
 
     end subroutine run_cc
 
