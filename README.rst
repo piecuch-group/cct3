@@ -33,6 +33,8 @@ which improves the results obtained with the conventional CCSD(T) approach
 without resorting to any multireference concepts and being at most twice as
 expensive as CCSD(T) [8]_, [9]_, [10]_.
 
+Please note that UHF/UKS references are not supported by CCT3.
+
 Build
 -----
 
@@ -55,9 +57,10 @@ following lines:
 
    $ git clone https://github.com/piecuch-group/cct3
    $ cd cct3
-   $ `psi4 --plugin-compile`
+   $ `psi4 --plugin-compile` -DCMAKE_Fortran_FLAGS="-O3"
    $ make
-
+   $ make install
+   
 Once this step is done, you should have a working copy of the plugin. You can
 run a test example with:
 
