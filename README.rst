@@ -50,8 +50,16 @@ first create a new python 3 environment and activate it via:
    $ conda create -n p4env python=3.7 psi4 psi4-dev -c psi4 -c psi4/label/dev
    $ source activate p4env
 
-Next, get the source code for the CC(t;3) plugin and compile it using the
-following lines:
+Next, get the source code for the CC(t;3) plugin and compile it.
+
+Compiling using the highest optimization level (-O3) is recommended for best
+performance, but the compiler may use large amounts of memory (16+ GiB) during the
+build.
+If that is a problem, lower optimization levels may be used, but the speed of the
+resulting CCT3 binary may suffer.
+
+If the machine has at least 32 GiB of RAM, you should have no problem executing
+the following lines:
 
 .. code-block:: bash
 
