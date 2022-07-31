@@ -98,8 +98,8 @@ void create_oei(int* sp_ord_inv, SharedMatrix moH, double* onebody, double ints_
     // Walk through moH and save the non-zero values
     double tmp_e;
     int offset = 0;
-    int i = 0;
-    int a = 0;
+    std::size_t i = 0;
+    std::size_t a = 0;
     for (int h=0; h<moH->nirrep(); ++h) {
         for (int m=0; m<moH->rowdim(h); ++m) {
             for (int n=0; n<=m; ++n) {
@@ -119,12 +119,12 @@ void create_oei(int* sp_ord_inv, SharedMatrix moH, double* onebody, double ints_
     }
 }
 
-void create_tei(int* sp_ord, int nirrep, dpdbuf4& K, double* twobody, double ints_tolerance, int norb)
+void create_tei(int* sp_ord, int nirrep, dpdbuf4& K, double* twobody, double ints_tolerance, std::size_t norb)
 {
-    int a = 0;
-    int b = 0;
-    int i = 0;
-    int j = 0;
+    std::size_t a = 0;
+    std::size_t b = 0;
+    std::size_t i = 0;
+    std::size_t j = 0;
     double tmp_e;
 
     for(int h = 0; h < nirrep; ++h){
@@ -357,7 +357,7 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
             0, "MO Ints (AA|AA)");
 
     // Create two electron integral array and sort
-    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, norbs);
+    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, std::static_cast<std::size_t>(norbs));
 
     global_dpd_->buf4_close(&K);
 
