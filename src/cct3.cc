@@ -357,7 +357,7 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
             0, "MO Ints (AA|AA)");
 
     // Create two electron integral array and sort
-    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, std::static_cast<std::size_t>(norbs));
+    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, static_cast<std::size_t>(norbs));
 
     global_dpd_->buf4_close(&K);
 
