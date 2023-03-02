@@ -64,6 +64,13 @@ run a test example with:
 .. code-block:: bash
 
    $ psi4 examples/H8-0.1.dat
+   
+**Note:** if you run into trouble importing the ``cct3`` module, try adding
+the path of the directory containing the ``cct3`` folder to your ``PYTHONPATH``.
+   
+.. code-block:: bash
+
+   $ export PYTHONPATH="/path/to/cct3/parent/folder:$PYTHONPATH"
 
 Run
 ---
