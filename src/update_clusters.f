@@ -578,7 +578,7 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
           endif
 C
-          if(K5.ge.2.and.K6.ge.1.and.K8.ge.1)then
+          if(K5.ge.1.and.K6.ge.2.and.K8.ge.1)then
             call t2C1000_update(N0,N1,N2,N3,HT2C,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
      & FAHH,FAHP,FAPP,FBHH,FBHP,FBPP,
@@ -1355,7 +1355,7 @@ C
       HT3C4=0.0d0
 C
       if(i1.eq.0)then
-      if(K7.ge.1.and.K6.ge.2.and.K0.ge.1.and.K6.ge.1)then
+      if(K7.ge.1.and.K5.ge.2.and.K0.ge.1.and.K6.ge.1)then
         call t3C100010_update(N0,N1,N2,N3,HT3C4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
      & FAHH,FAHP,FAPP,FBHH,FBHP,FBPP,
@@ -1369,7 +1369,7 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
 C
-      if(K7.ge.1.and.K6.ge.2.and.K0.ge.2.and.K6.ge.1)then
+      if(K7.ge.1.and.K5.ge.2.and.K0.ge.2.and.K6.ge.1)then
         call t3C100011_update(N0,N1,N2,N3,HT3C4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
      & FAHH,FAHP,FAPP,FBHH,FBHP,FBPP,
@@ -1383,7 +1383,7 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
 C
-      if(K7.ge.1.and.K6.ge.2.and.K0.ge.1.and.K6.ge.1.and.K9.ge.1)then
+      if(K7.ge.1.and.K5.ge.2.and.K0.ge.1.and.K6.ge.1.and.K9.ge.1)then
         call t3C100110_update(N0,N1,N2,N3,HT3C4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
      & FAHH,FAHP,FAPP,FBHH,FBHP,FBPP,
@@ -1397,7 +1397,7 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
 C
-      if(K7.ge.1.and.K6.ge.2.and.K0.ge.2.and.K9.ge.1)then
+      if(K7.ge.1.and.K5.ge.2.and.K0.ge.2.and.K9.ge.1)then
         call t3C100111_update(N0,N1,N2,N3,HT3C4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
      & FAHH,FAHP,FAPP,FBHH,FBHP,FBPP,
