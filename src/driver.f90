@@ -23,7 +23,8 @@ contains
             calc_type, &
             onebody, &
             twobody, &
-            label)
+            label &
+        )
 
         use const, only: p
         use solver, only: solve_ccsd, solve_ccsdt, solve_lccsd
@@ -68,7 +69,8 @@ contains
             call solve_ccsd(&
                 occ_a, &
                 occ_b, &
-                orbs,froz, &
+                orbs, &
+                froz, &
                 shift, &
                 itol, &
                 erepul, &

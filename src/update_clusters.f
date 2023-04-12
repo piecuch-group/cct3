@@ -14,7 +14,6 @@
        integer k1a, k1b, k2a, k2b, k2c
        integer k3a, k3b1, k3b2, k3b3, k3b4
        integer k3c1, k3c2, k3c3, k3c4, k3d
-       integer i0, i1
        integer m1, m2
        integer t_order
        integer t_size
@@ -75,6 +74,7 @@
        real*8,allocatable::HT3D(:,:,:,:,:,:)
 
        shift = 0.0d0
+
 
        ! K1 = # of occ alpha
        K1=N1-N0
@@ -142,8 +142,6 @@
        t_size=t_size+K4*K4*K0*K2*K2*K8  !1**1**
 
 C
-       i0=0
-       if (i0.eq.0) then
          allocate(HT2B(N2+1:N3,N1+1:N3,N0+1:N2,N0+1:N1))
          HT2B=0.0d0
 C
@@ -386,10 +384,7 @@ C
      & FAHH,FAPP,FBHH,FBPP,t(K1A),t(K1B),t(K2B))
           deallocate(HT2B)
 C
-        endif
 C
-        i0=0
-        if(i0.eq.0)then
           allocate(HT2A(N1+1:N3,N1+1:N3,N0+1:N1,N0+1:N1))
           HT2A=0.0d0
 C
@@ -676,10 +671,7 @@ C
      & iPC,K2,K4,FBHH,FBPP,t(K1B),t(K2C))
           deallocate(HT2C)
 C
-        endif
 C
-        i0=0
-        if(i0.eq.0)then
           allocate(HT1A(N1+1:N3,N0+1:N1))
           HT1A=0.0d0
 C
@@ -751,10 +743,6 @@ C
      & t(K1A),t(K1B),t(K2A),t(K2B),t(K2C))
           deallocate(HT1A)
 C
-        endif
-C
-        i0=0
-        if(i0.eq.0)then
 C
           allocate(HT1B(N2+1:N3,N0+1:N2))
           HT1B=0.0d0
@@ -826,13 +814,9 @@ C
      & t(K1A),t(K1B),t(K2A),t(K2B),t(K2C))
           deallocate(HT1B)
 C
-        endif
-C
         allocate(HT3B1(N2+1:N3,N1+1:N3,N1+1:M2,N0+1:N2,N0+1:N1,M1+1:N1))
           HT3B1=0.0d0
 C
-        i1=0
-        if(i1.eq.0)then
           if(K5.ge.1.and.K6.ge.1.and.K7.ge.1.and.K9.ge.1)then
             call t3B100100_update(N0,N1,N2,N3,HT3B1,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1057,12 +1041,10 @@ C
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
         endif
-        endif
 C
         allocate(HT3B4(N2+1:N3,N1+1:N3,N1+1:M2,M1+1:N2,N0+1:M1,N0+1:M1))
         HT3B4=0.0d0
 C
-        if(i1.eq.0)then
         if(K5.ge.2.and.K8.ge.1.and.K9.ge.1.and.K6.ge.1)then
           call t3B001100_update(N0,N1,N2,N3,HT3B4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1119,7 +1101,6 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
         endif
 C
-        endif
         allocate(HT3C1(N2+1:N3,N2+1:M2,N1+1:N3,N0+1:N2,M1+1:N2,N0+1:N1))
         HT3C1=0.0d0
 C
@@ -1137,8 +1118,6 @@ C
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
         endif
 C
-        i1=0
-        if(i1.eq.0)then
         if(K5.ge.1.and.K8.ge.1.and.K6.ge.1.and.K0.ge.2)then
           call t3C010011_update(N0,N1,N2,N3,HT3C1,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1349,12 +1328,10 @@ C
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
-      endif
 C
       allocate(HT3C4(N2+1:N3,N2+1:M2,N1+1:N3,N0+1:M1,N0+1:M1,M1+1:N1))
       HT3C4=0.0d0
 C
-      if(i1.eq.0)then
       if(K7.ge.1.and.K5.ge.2.and.K0.ge.1.and.K6.ge.1)then
         call t3C100010_update(N0,N1,N2,N3,HT3C4,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1410,7 +1387,6 @@ C
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
-      endif
 C
       call t3BC_update(N0,N1,N2,N3,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,iPB,
@@ -1420,8 +1396,6 @@ C
      & HT3B1,HT3B4,HT3C1,HT3C4)
       deallocate(HT3B1,HT3B4,HT3C1,HT3C4)
 C
-      i1=0
-      if(i1.eq.0)then	
       allocate(HT3A(N1+1:N3,N1+1:N3,N1+1:M2,N0+1:N1,N0+1:N1,M1+1:N1))
       HT3A=0.0d0
 C
@@ -1635,13 +1609,9 @@ C
      & HT3A,HT3B2,HT3B3)
       deallocate(HT3A,HT3B2,HT3B3)
 C
-      endif
-C
       allocate(HT3C2(M2+1:N3,M2+1:N3,N1+1:M2,N0+1:M1,N0+1:M1,M1+1:N1))
       HT3C2=0.0d0
 C
-      i1=0
-      if(i1.eq.0)then
       if(K5.ge.2.and.K6.ge.2.and.K7.ge.1.and.K9.ge.1)then
         call t3C100100_update(N0,N1,N2,N3,HT3C2,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1655,12 +1625,10 @@ C
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
-      endif
 C
       allocate(HT3C3(M2+1:N3,M2+1:N3,N1+1:M2,N0+1:N2,M1+1:N2,N0+1:N1))
       HT3C3=0.0d0
 C
-      if(i1.eq.0)then
       if(K5.ge.1.and.K6.ge.2.and.K8.ge.1.and.K9.ge.1)then
         call t3C010100_update(N0,N1,N2,N3,HT3C3,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1716,12 +1684,10 @@ C
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
       endif
-      endif
 C
       allocate(HT3D(N2+1:N3,N2+1:N3,N2+1:M2,N0+1:N2,N0+1:N2,M1+1:N2))
       HT3D=0.0d0
 C
-      if(i1.eq.0)then
       if(K5.ge.2.and.K6.ge.2.and.K8.ge.1.and.K0.ge.1)then
         call t3D100100_update(N0,N1,N2,N3,HT3D,shift,
      & M1,M2,K1,K2,K3,K4,K5,K6,K7,K8,K9,K0,
@@ -1846,7 +1812,6 @@ C
      & t(K1A),t(K1B),t(K2A),t(K2B),t(K2C),
      & t(K3A),t(K3B1),t(K3B2),t(K3B3),t(K3B4),
      & t(K3C1),t(K3C2),t(K3C3),t(K3C4),t(K3D))
-      endif
       endif
 C
       call t3CD_update(N0,N1,N2,N3,shift,

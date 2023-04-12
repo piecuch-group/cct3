@@ -446,7 +446,7 @@ contains
             label)
 
         ! Open temporary files to store T vector amplitudes
-        open(t_unit,file='t_vec.bin',form='unformatted')
+        open(t_unit, file='t_vec.bin', form='unformatted')
         open(t_vecs_unit, file='t_vecs.bin', form='unformatted', recl=t_size*8, access='direct')
 
         allocate(t(t_size))
