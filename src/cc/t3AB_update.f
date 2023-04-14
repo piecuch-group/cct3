@@ -97,8 +97,8 @@ C
 C
         allocate(U(b+1:N3,N3A))
         I1=N3A
-!       call EGEMM(I1,I2,I3,tt3A,VAPPP(1,1,b+1),U)
-        call EGEMM(I1,I2,I3,tt3A,C1,U)
+!       call DMATMAT(I1,I2,I3,tt3A,VAPPP(1,1,b+1),U)
+        call DMATMAT(I1,I2,I3,tt3A,C1,U)
         I3A=0
         do I=M1+1,N1;do j=N0+2,N1;do k=N0+1,j-1;do A=N1+1,M2
          I3A=I3A+1
@@ -110,8 +110,8 @@ C
 C
         allocate(U(b+1:N3,N3B2))
         I1=N3B2
-!       call EGEMM(I1,I2,I3,tt3B2,VAPPP(1,1,b+1),U)
-        call EGEMM(I1,I2,I3,tt3B2,C1,U)
+!       call DMATMAT(I1,I2,I3,tt3B2,VAPPP(1,1,b+1),U)
+        call DMATMAT(I1,I2,I3,tt3B2,C1,U)
         I3B2=0
         do i=N0+2,M1;do j=N0+1,i-1;do K=M1+1,N2;do C=N2+1,M2
          I3B2=I3B2+1
@@ -123,8 +123,8 @@ C
 C
         allocate(U(b+1:N3,N3B3))
         I1=N3B3
-        call EGEMM(I1,I2,I3,tt3B3,C1,U)
-!       call EGEMM(I1,I2,I3,tt3B3,VAPPP(1,1,b+1),U)
+        call DMATMAT(I1,I2,I3,tt3B3,C1,U)
+!       call DMATMAT(I1,I2,I3,tt3B3,VAPPP(1,1,b+1),U)
         deallocate(C1)
         I3B3=0
         do I=M1+1,N1;do j=N0+1,N1;do k=N0+1,N2;do C=N2+1,M2

@@ -39,8 +39,8 @@ C
         I1=N2C
         I2=N3-a
         I3=K4*K4
-        call EGEMM(I1,I2,I3,tt2C,C1,U)
-!       call EGEMM(I1,I2,I3,tt2C,VCPPP(1,1,a+1),U)
+        call DMATMAT(I1,I2,I3,tt2C,C1,U)
+!       call DMATMAT(I1,I2,I3,tt2C,VCPPP(1,1,a+1),U)
         deallocate(C1)
         I2C=0
         do i=N0+2,N2;do j=N0+1,i-1

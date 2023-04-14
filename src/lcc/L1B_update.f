@@ -91,7 +91,7 @@ C
        I1=K1
        I2=K1
        I3=K3*K3*K1
-       call EGEMM(I1,I2,I3,D1,D2,Q5)
+       call DMATMAT(I1,I2,I3,D1,D2,Q5)
        deallocate(D1)
        deallocate(D2)
 C
@@ -104,7 +104,7 @@ C
        allocate(U6(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K1*K1
-       call EGEMM1(I1,I3,D1,B2,U6)
+       call DMATVEC(I1,I3,D1,B2,U6)
        deallocate(D1)
        deallocate(B2)
 C
@@ -122,7 +122,7 @@ C
        I1=K3
        I2=K3
        I3=K3*K1*K1
-       call EGEMM(I1,I2,I3,D1,D2,Q7)
+       call DMATMAT(I1,I2,I3,D1,D2,Q7)
        deallocate(D1)
        deallocate(D2)
 C
@@ -132,7 +132,7 @@ C
        allocate(U8(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K3
-       call EGEMM1(I1,I3,D1,Q7,U8)
+       call DMATVEC(I1,I3,D1,Q7,U8)
        deallocate(D1)
 C
        V1B=V1B+1.0d0/2*U8
@@ -149,7 +149,7 @@ C
        I1=K1
        I2=K1
        I3=K3*K3*K1
-       call EGEMM(I1,I2,I3,D1,D2,Q9)
+       call DMATMAT(I1,I2,I3,D1,D2,Q9)
        deallocate(D1)
        deallocate(D2)
 C
@@ -163,7 +163,7 @@ C
        I1=K1
        I2=K3
        I3=K1
-       call EGEMM(I1,I2,I3,B1,B2,Q10)
+       call DMATMAT(I1,I2,I3,B1,B2,Q10)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q9)
@@ -177,7 +177,7 @@ C
        allocate(U11(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K1
-       call EGEMM1(I1,I3,D1,B2,U11)
+       call DMATVEC(I1,I3,D1,B2,U11)
        deallocate(D1)
        deallocate(B2)
 C
@@ -195,7 +195,7 @@ C
        I1=K3
        I2=K3
        I3=K3*K1*K1
-       call EGEMM(I1,I2,I3,D1,D2,Q12)
+       call DMATMAT(I1,I2,I3,D1,D2,Q12)
        deallocate(D1)
        deallocate(D2)
 C
@@ -209,7 +209,7 @@ C
        I1=K3
        I2=K1
        I3=K3
-       call EGEMM(I1,I2,I3,B1,B2,Q13)
+       call DMATMAT(I1,I2,I3,B1,B2,Q13)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q12)
@@ -220,7 +220,7 @@ C
        allocate(U14(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K1
-       call EGEMM1(I1,I3,D1,Q13,U14)
+       call DMATVEC(I1,I3,D1,Q13,U14)
        deallocate(D1)
 C
        V1B=V1B-1.0d0/2*U14
@@ -237,7 +237,7 @@ C
        I1=K1
        I2=K1
        I3=K3*K4*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q17)
+       call DMATMAT(I1,I2,I3,D1,D2,Q17)
        deallocate(D1)
        deallocate(D2)
 C
@@ -250,7 +250,7 @@ C
        allocate(U18(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K1*K1
-       call EGEMM1(I1,I3,D1,B2,U18)
+       call DMATVEC(I1,I3,D1,B2,U18)
        deallocate(D1)
        deallocate(B2)
 C
@@ -267,7 +267,7 @@ C
        I1=K1
        I2=K3
        I3=K1
-       call EGEMM(I1,I2,I3,B1,B2,Q21)
+       call DMATMAT(I1,I2,I3,B1,B2,Q21)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q17)
@@ -281,7 +281,7 @@ C
        allocate(U22(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K1
-       call EGEMM1(I1,I3,D1,B2,U22)
+       call DMATVEC(I1,I3,D1,B2,U22)
        deallocate(D1)
        deallocate(B2)
 C
@@ -299,7 +299,7 @@ C
        I1=K3
        I2=K3
        I3=K4*K1*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q19)
+       call DMATMAT(I1,I2,I3,D1,D2,Q19)
        deallocate(D1)
        deallocate(D2)
 C
@@ -309,7 +309,7 @@ C
        allocate(U20(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K3
-       call EGEMM1(I1,I3,D1,Q19,U20)
+       call DMATVEC(I1,I3,D1,Q19,U20)
        deallocate(D1)
 C
        V1B=V1B+U20
@@ -325,7 +325,7 @@ C
        I1=K3
        I2=K1
        I3=K3
-       call EGEMM(I1,I2,I3,B1,B2,Q23)
+       call DMATMAT(I1,I2,I3,B1,B2,Q23)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q19)
@@ -336,7 +336,7 @@ C
        allocate(U24(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K1
-       call EGEMM1(I1,I3,D1,Q23,U24)
+       call DMATVEC(I1,I3,D1,Q23,U24)
        deallocate(D1)
 C
        V1B=V1B-U24
@@ -353,7 +353,7 @@ C
        I1=K2
        I2=K2
        I3=K3*K4*K1
-       call EGEMM(I1,I2,I3,D1,D2,Q25)
+       call DMATMAT(I1,I2,I3,D1,D2,Q25)
        deallocate(D1)
        deallocate(D2)
 C
@@ -366,7 +366,7 @@ C
        allocate(U26(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K2*K2
-       call EGEMM1(I1,I3,D1,B2,U26)
+       call DMATVEC(I1,I3,D1,B2,U26)
        deallocate(D1)
        deallocate(B2)
 C
@@ -383,7 +383,7 @@ C
        I1=K2
        I2=K4
        I3=K2
-       call EGEMM(I1,I2,I3,B1,B2,Q29)
+       call DMATMAT(I1,I2,I3,B1,B2,Q29)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q25)
@@ -397,7 +397,7 @@ C
        allocate(U30(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K2
-       call EGEMM1(I1,I3,D1,B2,U30)
+       call DMATVEC(I1,I3,D1,B2,U30)
        deallocate(D1)
        deallocate(B2)
 C
@@ -415,7 +415,7 @@ C
        I1=K4
        I2=K4
        I3=K3*K1*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q27)
+       call DMATMAT(I1,I2,I3,D1,D2,Q27)
        deallocate(D1)
        deallocate(D2)
 C
@@ -428,7 +428,7 @@ C
        allocate(U28(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K4
-       call EGEMM1(I1,I3,D1,B2,U28)
+       call DMATVEC(I1,I3,D1,B2,U28)
        deallocate(D1)
        deallocate(B2)
 C
@@ -445,7 +445,7 @@ C
        I1=K4
        I2=K2
        I3=K4
-       call EGEMM(I1,I2,I3,B1,B2,Q31)
+       call DMATMAT(I1,I2,I3,B1,B2,Q31)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q27)
@@ -456,7 +456,7 @@ C
        allocate(U32(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K2
-       call EGEMM1(I1,I3,D1,Q31,U32)
+       call DMATVEC(I1,I3,D1,Q31,U32)
        deallocate(D1)
 C
        V1B=V1B-U32
@@ -473,7 +473,7 @@ C
        I1=K2
        I2=K2
        I3=K4*K4*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q35)
+       call DMATMAT(I1,I2,I3,D1,D2,Q35)
        deallocate(D1)
        deallocate(D2)
 C
@@ -486,7 +486,7 @@ C
        allocate(U36(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K2*K2
-       call EGEMM1(I1,I3,D1,B2,U36)
+       call DMATVEC(I1,I3,D1,B2,U36)
        deallocate(D1)
        deallocate(B2)
 C
@@ -504,7 +504,7 @@ C
        I1=K4
        I2=K4
        I3=K4*K2*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q37)
+       call DMATMAT(I1,I2,I3,D1,D2,Q37)
        deallocate(D1)
        deallocate(D2)
 C
@@ -514,7 +514,7 @@ C
        allocate(U38(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K4
-       call EGEMM1(I1,I3,D1,Q37,U38)
+       call DMATVEC(I1,I3,D1,Q37,U38)
        deallocate(D1)
 C
        V1B=V1B+1.0d0/2*U38
@@ -531,7 +531,7 @@ C
        I1=K2
        I2=K2
        I3=K4*K4*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q39)
+       call DMATMAT(I1,I2,I3,D1,D2,Q39)
        deallocate(D1)
        deallocate(D2)
 C
@@ -545,7 +545,7 @@ C
        I1=K2
        I2=K4
        I3=K2
-       call EGEMM(I1,I2,I3,B1,B2,Q40)
+       call DMATMAT(I1,I2,I3,B1,B2,Q40)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q39)
@@ -559,7 +559,7 @@ C
        allocate(U41(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K2
-       call EGEMM1(I1,I3,D1,B2,U41)
+       call DMATVEC(I1,I3,D1,B2,U41)
        deallocate(D1)
        deallocate(B2)
 C
@@ -577,7 +577,7 @@ C
        I1=K4
        I2=K4
        I3=K4*K2*K2
-       call EGEMM(I1,I2,I3,D1,D2,Q42)
+       call DMATMAT(I1,I2,I3,D1,D2,Q42)
        deallocate(D1)
        deallocate(D2)
 C
@@ -591,7 +591,7 @@ C
        I1=K4
        I2=K2
        I3=K4
-       call EGEMM(I1,I2,I3,B1,B2,Q43)
+       call DMATMAT(I1,I2,I3,B1,B2,Q43)
        deallocate(B1)
        deallocate(B2)
        deallocate(Q42)
@@ -602,7 +602,7 @@ C
        allocate(U44(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K2
-       call EGEMM1(I1,I3,D1,Q43,U44)
+       call DMATVEC(I1,I3,D1,Q43,U44)
        deallocate(D1)
 C
        V1B=V1B-1.0d0/2*U44
@@ -618,7 +618,7 @@ C
        allocate(U1(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K3*K1
-       call EGEMM1(I1,I3,D1,B2,U1)
+       call DMATVEC(I1,I3,D1,B2,U1)
        deallocate(D1)
        deallocate(B2)
 C
@@ -635,7 +635,7 @@ C
        I1=K2
        I2=K4
        I3=K2
-       call EGEMM(I1,I2,I3,B1,B2,U2)
+       call DMATMAT(I1,I2,I3,B1,B2,U2)
        deallocate(B1)
        deallocate(B2)
 C
@@ -652,7 +652,7 @@ C
        I1=K4
        I2=K2
        I3=K4
-       call EGEMM(I1,I2,I3,B1,B2,U3)
+       call DMATMAT(I1,I2,I3,B1,B2,U3)
        deallocate(B1)
        deallocate(B2)
 C
@@ -669,7 +669,7 @@ C
        allocate(U4(N2+1:N3,N0+1:N2))
        I1=K2*K4
        I3=K4*K2
-       call EGEMM1(I1,I3,D1,B2,U4)
+       call DMATVEC(I1,I3,D1,B2,U4)
        deallocate(D1)
        deallocate(B2)
 C
@@ -686,7 +686,7 @@ C
        I1=K2
        I2=K4
        I3=K3*K1*K2
-       call EGEMM(I1,I2,I3,D1,D2,U15)
+       call DMATMAT(I1,I2,I3,D1,D2,U15)
        deallocate(D1)
        deallocate(D2)
 C
@@ -703,7 +703,7 @@ C
        I1=K4
        I2=K2
        I3=K3*K4*K1
-       call EGEMM(I1,I2,I3,D1,D2,U16)
+       call DMATMAT(I1,I2,I3,D1,D2,U16)
        deallocate(D1)
        deallocate(D2)
 C
@@ -721,7 +721,7 @@ C
        I1=K2
        I2=K4
        I3=K4*K2*K2
-       call EGEMM(I1,I2,I3,D1,D2,U33)
+       call DMATMAT(I1,I2,I3,D1,D2,U33)
        deallocate(D1)
        deallocate(D2)
 C
@@ -738,7 +738,7 @@ C
        I1=K4
        I2=K2
        I3=K4*K4*K2
-       call EGEMM(I1,I2,I3,D1,D2,U34)
+       call DMATMAT(I1,I2,I3,D1,D2,U34)
        deallocate(D1)
        deallocate(D2)
 C

@@ -1,8 +1,7 @@
-      subroutine egemm(K1,K2,K3,A,B,C)
+      subroutine dmatmat(K1,K2,K3,A,B,C)
       implicit none
       integer K1,K2,K3
       real*8 A(K3,K1),B(K3,K2),C(K2,K1)
-      character(len=255) :: tmp_str
 
 
       if (k1 * k2 * k3 .eq. 0) then
@@ -14,7 +13,7 @@
 
       end
 
-      subroutine egemm1(K1,K3,A,B,C)
+      subroutine dmatvec(K1,K3,A,B,C)
       implicit none
       integer K1,K3
       real*8 A(K3,K1),B(K3),C(K1)
@@ -27,7 +26,7 @@
 
       end
 
-      subroutine egemm2(K2,K3,A,B,C)
+      subroutine dvecmat(K2,K3,A,B,C)
       implicit none
       integer K2,K3
       real*8 A(K3),B(K3,K2),C(K2)
