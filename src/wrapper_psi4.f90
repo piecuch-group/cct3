@@ -16,7 +16,8 @@ subroutine cc(&
         erepul, &
         eref_psi4, &
         eprim, &
-        esec)
+        esec &
+    )
 
     ! Wrapper between PSI4 and the CC(t;3) program. It handles molecular data,
     ! including one- and two-body integrals.
@@ -78,6 +79,8 @@ subroutine cc(&
     logical, intent(in) :: keep_amps
     logical, intent(in) :: ifrhf
     integer, intent(in) :: diis_space
+
+
     real(p) :: shift
     character(len=100) :: label
 
@@ -104,7 +107,6 @@ subroutine cc(&
 
     ! [TODO] the C arrays could be deallocated
     call write_integrals(onebody, twobody, orbs)
-    !call write_integrals_dbg(erepul, onebody, twobody, orbs)
 
     ! Set active space
     actocc = max(occ_b-actocc_in, froz)

@@ -120,7 +120,7 @@ C
 C
         allocate(U(M2+1:N3,N3B1))
         I1=N3B1
-        call EGEMM(I1,I2,I3,tt3B1,C1,U)
+        call DMATMAT(I1,I2,I3,tt3B1,C1,U)
         I3B1=0
         do I=M1+1,N1;do j=N0+1,N1;do k=N0+1,N2;do A=N1+1,M2
          I3B1=I3B1+1
@@ -132,7 +132,7 @@ C
 C
         allocate(U(M2+1:N3,N3B4))
         I1=N3B4
-        call EGEMM(I1,I2,I3,tt3B4,C1,U)
+        call DMATMAT(I1,I2,I3,tt3B4,C1,U)
         I3B4=0
         do i=N0+2,M1;do j=N0+1,i-1;do K=M1+1,N2;do A=N1+1,M2
          I3B4=I3B4+1
@@ -144,7 +144,7 @@ C
 C
         I1=N3C1
         allocate(U(M2+1:N3,N3C1))
-        call EGEMM(I1,I2,I3,tt3C1,C1,U)
+        call DMATMAT(I1,I2,I3,tt3C1,C1,U)
         I3C1=0 
         do i=N0+1,N1;do J=M1+1,N2;do k=N0+1,N2;do A=N2+1,M2
          I3C1=I3C1+1
@@ -156,7 +156,7 @@ C
 C
         I1=N3C4
         allocate(U(M2+1:N3,N3C4))
-        call EGEMM(I1,I2,I3,tt3C4,C1,U)
+        call DMATMAT(I1,I2,I3,tt3C4,C1,U)
         deallocate(C1)
         I3C4=0
         do I=M1+1,N1;do j=N0+2,M1;do k=N0+1,j-1;do A=N2+1,M2

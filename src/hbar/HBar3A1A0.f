@@ -37,7 +37,7 @@ C
        I1=K1*K3*K3
        I2=K3
        I3=K1
-       call EGEMM(I1,I2,I3,D1,B2,U1)
+       call DMATMAT(I1,I2,I3,D1,B2,U1)
        deallocate(D1)
        deallocate(B2)
 C

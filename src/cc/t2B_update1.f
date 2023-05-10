@@ -29,7 +29,7 @@ C
        do a=N1+1,N3
         U=0.0d0
         read(iPB,rec=a)VBPPPP
-        call EGEMM(I1,I2,I3,VBPPPP,D,U)
+        call DMATMAT(I1,I2,I3,VBPPPP,D,U)
         do b=N2+1,N3;do i=N0+1,N1;do j=N0+1,N2
          V2B(b,a,j,i)=V2B(b,a,j,i)+U(j,i,b)
         enddo;enddo;enddo
