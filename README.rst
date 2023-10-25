@@ -129,3 +129,18 @@ References
 .. [8] \P. Piecuch and M. Wloch, "Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian," *J. Chem. Phys.* **123**, 224105-1 - 224105-10 (2005). DOI: http://dx.doi.org/10.1063/1.2137318.
 .. [9] \P. Piecuch, M. Wloch, J.R. Gour, and A. Kinal, "Single-Reference, Size-Extensive, Non-Iterative Coupled-cluster Approaches to Bond Breaking and Biradicals," *Chem. Phys. Lett.* **418**, 467-474 (2006). DOI: http://dx.doi.org/10.1016/j.cplett.2005.10.116.
 .. [10] \M. Wloch, J.R. Gour, and P. Piecuch, "Extension of the Renormalized Coupled-Cluster Methods Exploiting Left Eigenstates of the Similarity-Transformed Hamiltonian to Open-Shell Systems: A Benchmark Study," *J. Phys. Chem. A* **111**, 11359-11382 (2007). DOI: http://dx.doi.org/10.1021/jp072535l.
+
+Development Team
+----------------
+
+| Dr. J. Emiliano Deustua
+| COO and Co-founder, Examol
+| e-mail: edeustua@gmail.com
+|
+| Dr. Jun Shen
+| Senior Research Associate, Department of Chemistry, Michigan State University
+| e-mail: shenjun@msu.edu
+|
+| Professor Piotr Piecuch
+| University Distinguished Professor and Michigan State University Foundation Professor, Department of Chemistry, Michigan State University  
+| Adjunct Professor, Department of Physics and Astronomy, Michigan State University
