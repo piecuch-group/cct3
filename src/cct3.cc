@@ -47,7 +47,8 @@
 
 #include "fortran.h"
 #include <cstdarg>
-
+#include <cstddef>
+#include <cmath>
 
 // This allows us to be lazy in getting the spaces in DPD calls
 #define ID(x) ints.DPD_ID(x)
@@ -97,8 +98,8 @@ void create_oei(int* sp_ord_inv, SharedMatrix moH, double* onebody, double ints_
     // Walk through moH and save the non-zero values
     double tmp_e;
     int offset = 0;
-    int i = 0;
-    int a = 0;
+    std::size_t i = 0;
+    std::size_t a = 0;
     for (int h=0; h<moH->nirrep(); ++h) {
         for (int m=0; m<moH->rowdim(h); ++m) {
             for (int n=0; n<=m; ++n) {
@@ -118,12 +119,12 @@ void create_oei(int* sp_ord_inv, SharedMatrix moH, double* onebody, double ints_
     }
 }
 
-void create_tei(int* sp_ord, int nirrep, dpdbuf4& K, double* twobody, double ints_tolerance, int norb)
+void create_tei(int* sp_ord, int nirrep, dpdbuf4& K, double* twobody, double ints_tolerance, std::size_t norb)
 {
-    int a = 0;
-    int b = 0;
-    int i = 0;
-    int j = 0;
+    std::size_t a = 0;
+    std::size_t b = 0;
+    std::size_t i = 0;
+    std::size_t j = 0;
     double tmp_e;
 
     for(int h = 0; h < nirrep; ++h){
@@ -229,9 +230,6 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
     double corl_e_sec = 0.0;
     std::array<double, 3> dipole_field = {0.0, 0.0, 0.0};
 
-    // Aux vars
-    int i;
-
     // Integrals for CC
     double *onebody = NULL;
     double *twobody = NULL;
@@ -300,10 +298,10 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
     int docc = doccpi.sum();
     int norbs = norb.sum();
 
-    //std::cout << nalpha << "  " << nbeta << "\n";
-    //std::cout << socc << "  " << docc << "  " << norbs << "\n";
+    std::size_t onebody_dim = std::pow(norbs, 2);
+    std::size_t twobody_dim = std::pow(norbs, 4);
 
-    //exit(1);
+
     if (froz > docc) {
         throw PSIEXCEPTION("Number of frozen orbitals is too large!");
     }
@@ -314,22 +312,22 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
 
 
     // Initialize integral arrays for Fortran
-    onebody = new double[norbs*norbs];
-    twobody = new double[norbs*norbs*norbs*norbs];
+    onebody = new double[onebody_dim];
+    twobody = new double[twobody_dim];
     sp_eigv = new double[norbs];
     sp_ord = new int[norbs];
     sp_ord_inv = new int[norbs];
 
-    for (i = 0; i < norbs; i++) {
+    for (std::size_t i = 0; i < norbs; i++) {
         sp_eigv[i] = 0;
         sp_ord[i] = 0;
           sp_ord_inv[i] = 0;
     }
 
-    for (i = 0; i < norbs*norbs; i++) {
+    for (std::size_t i = 0; i < onebody_dim; i++) {
         onebody[i] = 0.0;
     }
-    for (i = 0; i < norbs*norbs*norbs*norbs; i++) {
+    for (std::size_t i = 0; i < twobody_dim; i++) {
         twobody[i] = 0.0;
     }
 
@@ -359,7 +357,7 @@ SharedWavefunction cct3(SharedWavefunction ref_wfn, Options& options)
             0, "MO Ints (AA|AA)");
 
     // Create two electron integral array and sort
-    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, norbs);
+    create_tei(sp_ord_inv, nirrep, K, twobody, ints_tol, static_cast<std::size_t>(norbs));
 
     global_dpd_->buf4_close(&K);
 

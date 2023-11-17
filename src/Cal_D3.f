@@ -84,4 +84,4 @@ C
         D3D2(b,a,i)=-PP
        enddo;enddo;enddo
 C
-        end
+       end subroutine
